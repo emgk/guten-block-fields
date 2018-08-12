@@ -28,8 +28,6 @@ if (typeof c === "undefined") {
 // run the script.
 switch (c) {
     case 'generate':
-        console.log(chalk.green(`Files are generating...`));
-
         // Generate file.
         createControllers.generateBlocks();
         break;
