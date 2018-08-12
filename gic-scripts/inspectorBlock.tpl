@@ -8,6 +8,8 @@ class <%InspectorController%> extends Component {
         super(this);
     }
 
+    <%functions%>
+
     render() {
         return(
             <InspectorControls>

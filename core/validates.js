@@ -15,5 +15,5 @@ module.exports.validateFieldName = (name) => {
  * @param {String} value 
  */
 module.exports.makeComponentName = (value) => {
-    return value.replace(/\s+/g, '').replace('-', '');
+    return value.toString().replace(/\s+/g, '').replace('-', '');
 }

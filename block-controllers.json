@@ -4,13 +4,15 @@
         "your-name": {
             "title": "Your Name",
             "slug": "your-name",
-            "type": "text"
+            "type": "text",
+            "value": 123,
+            "props": "name"
         },
         "color": {
             "title": "Background Color",
             "slug": "background-color",
             "type": "color",
-            "toggle": true
+            "props": "bgcolor"
         }
     }
 }
