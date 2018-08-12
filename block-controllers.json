@@ -1,0 +1,21 @@
+{
+    "name": "My Controllers",
+    "fields": {
+        "your-name": {
+            "title": "Your Name",
+            "slug": "your-name",
+            "type": "text"
+        },
+        "color": {
+            "title": "Background Color",
+            "slug": "background-color",
+            "type": "color",
+            "toggle": true
+        },
+        "gender": {
+            "title": "Gender",
+            "slug": "gender",
+            "type": "radio"
+        }
+    }
+}

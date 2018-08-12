@@ -5,7 +5,7 @@ const program = require('commander');
 const package = require('./package.json');
 
 // Get the function to create controllers.
-const createControllers = require('./core/createControllers');
+const createControllers = require('./core/init');
 
 // Set the command.
 program
@@ -31,7 +31,7 @@ switch (c) {
         console.log(chalk.green(`Files are generating...`));
 
         // Generate file.
-        createControllers.generateFile();
+        createControllers.generateBlocks();
         break;
 
     // Default msg.
