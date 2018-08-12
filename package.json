@@ -1,0 +1,14 @@
+{
+  "name": "guten-inspect-controller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin" : {
+    "guten-inspect-controller" : "./index.js"
+  }
+}
