@@ -10,5 +10,8 @@
   "license": "ISC",
   "bin": {
     "guten-inspect-controller": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
   }
 }
