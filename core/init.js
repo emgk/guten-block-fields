@@ -15,13 +15,14 @@ const makeComponent = () => {
 
 }
 
-
+// Store field block's code.
+var fieldBlocks = '';
 
 module.exports.generateBlocks = () => {
 
     // Process start.
     // spinner.start(
-        // chalk.blue(`Generating process has been started... \n`)
+    // chalk.blue(`Generating process has been started... \n`)
     // );
 
     // If no field were mentioned.
@@ -33,15 +34,19 @@ module.exports.generateBlocks = () => {
         process.exit(1);
     }
 
+    // Create file where all the field code would be store as temporarily.
+    let tempFieldsCode = fs.createWriteStream(path.resolve(__dirname, '../tempFields.js'));
+
     for (field in inspectorControllers.fields) {
         switch (inspectorControllers.fields[field].type) {
             case 'text':
-                renderField.renderTextField(inspectorControllers.fields[field]);
+                renderField.renderTextField(inspectorControllers.fields[field], tempFieldsCode);
                 break;
         }
     }
 
+    tempFieldsCode.end();
     // setTimeout(() => {
-        // spinner.succeed(chalk.green(`File generated successfully!`));
+    // spinner.succeed(chalk.green(`File generated successfully!`));
     // }, 1000);
 }

@@ -1,14 +1,16 @@
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
-const spinner = require('ora');
+const ora = require('ora');
 
 const validate = require('./validates');
 const spinner = ora({ text: '' });
 
-module.exports.renderTextField = (field) => {
+module.exports.renderTextField = (field, file) => {
+    // Get the template.
     let template = path.resolve(__dirname, '../gic-scripts/fields/text.tpl');
 
+    // Set start.
     spinner.start(
         console.log(
             chalk.green(`Generating field "${field.title}"`)
@@ -16,28 +18,18 @@ module.exports.renderTextField = (field) => {
     );
 
     // Get the file content.
-    fs.readFile(template, 'utf8', (err, contents) => {
+    let textFieldCode = fs.readFileSync(template).toString();
 
-        // If error.
-        if (err) {
-            console.log(
-                chalk.red(`Error while loading TextPlain template.`)
-            )
-            process.exit(1);
-        }
+    // Replace the content.
+    textFieldCode = textFieldCode.replace(`<%field-title%>`, `"${field.title}"`);
+    textFieldCode = textFieldCode.replace(`<%field-slug%>`, `${field.slug}`);
+    textFieldCode = textFieldCode.replace(`<%field-slug%>`, `${validate.makeComponentName(field.slug)}`);
 
-        let textFieldContent = contents.toString();
+    // Write the content.
+    file.write(textFieldCode);
 
-        // Replace the content.
-        textFieldContent = textFieldContent.replace(`<%field-title%>`, `"${field.title}"`);
-        textFieldContent = textFieldContent.replace(`<%field-slug%>`, `${field.slug}`);
-        textFieldContent = textFieldContent.replace(`<%field-slug%>`, `${validate.makeComponentName(field.slug)}`);
-
-        // Completed.
-        setTimeout(() => {
-            spinner.succeed(chalk.green(`${field.title} generated successfully!`));
-        }, 1000);
-
-        return textFieldContent;
-    });
-}
+    // Completed.
+    setTimeout(() => {
+        spinner.succeed(chalk.green(`"${field.title}" field generated successfully!`));
+    }, 2000);
+};
