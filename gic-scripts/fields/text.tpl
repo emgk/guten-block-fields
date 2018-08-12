@@ -2,7 +2,7 @@
         <TextPlain
             label={ __( <%field-title%> ) }
             className="editor-post-<%field-slug%>"
-            onChange={ ( value ) => onUpdateExcerpt( value ) }
+            onChange={ ( value ) => onChange<%field-slug%>>( value ) }
             value={ excerpt }
         />
 </div>
