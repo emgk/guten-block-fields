@@ -36,10 +36,15 @@ const fieldSpinner = (field, iscompleted) => {
     }
 }
 
+
+// Create file where all the field code would be store as temporarily.
+let packageToImport = fs.createWriteStream(path.resolve(__dirname, '../tempPKG.js'));
+
 /**
  * Render the TextPlain field.
  * 
  * @since 1.0.0
+ * 
  * @param {object} field 
  * @param {fs} file 
  */
@@ -61,4 +66,20 @@ module.exports.renderTextField = (field, file) => {
 
     // Write the content.
     file.write(textFieldCode);
+};
+
+/**
+ * Render the React Component.
+ * 
+ * @since 1.0.0
+ * 
+ * @param {String} componentName 
+ * @param {String} packages 
+ * @param {String} fields 
+ */
+module.exports.renderReactComponent = (componentName, packages, fields) => {
+    // Get the block component template.
+    let blockComponent = path.resolve(__dirname, '../gic-scripts/blockComponent');
+
+
 };

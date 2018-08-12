@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const renderField = require('./renderField');
+const validateFunc = require('./validates');
 
 // Get the fields.
 const inspectorControllers = require('../block-fields.json');
@@ -18,6 +19,9 @@ module.exports.generateBlocks = () => {
         process.exit(1);
     }
 
+    // Get the react component name.
+    let blockComponentName = validateFunc.makeComponentName(inspectorControllers.name);
+
     // Create file where all the field code would be store as temporarily.
     let tempFieldsCode = fs.createWriteStream(path.resolve(__dirname, '../tempFields.js'));
 
@@ -29,6 +33,9 @@ module.exports.generateBlocks = () => {
                 break;
         }
     }
+
+    // Render the react block component.
+    renderField.renderReactComponent(blockComponentName);
 
     // Terminate the file system.
     tempFieldsCode.end();
