@@ -53,7 +53,7 @@ module.exports.renderTextField = (field, file) => {
     // Replace the content.
     textFieldCode = textFieldCode.replace(`<%field-title%>`, `"${field.title}"`);
     textFieldCode = textFieldCode.replace(/<%field-slug%>/g, `${field.slug}`);
-    textFieldCode = textFieldCode.replace(`<%field-name%>`, `${validate.makeComponentName(field.slug)}`);
+    textFieldCode = textFieldCode.replace(`<%field-attributeName%>`, `${validate.makeComponentName(field.attributeName)}`);
     textFieldCode = textFieldCode.replace(`<%field-value%>`, `${validate.makeComponentName(field.value)}`);
 
     // Success.

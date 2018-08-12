@@ -1,5 +1,4 @@
 const fs = require('fs');
-const ora = require('ora');
 const path = require('path');
 const chalk = require('chalk');
 const renderField = require('./renderField');
@@ -7,16 +6,7 @@ const renderField = require('./renderField');
 // Get the fields.
 const inspectorControllers = require('../block-fields.json');
 
-// Loader.
-const spinner = ora({ text: '' });
-
-const makeComponent = () => {
-
-}
-
-// Store field block's code.
-var fieldBlocks = '';
-
+// Generate fields and blocks.
 module.exports.generateBlocks = () => {
 
     // If no field were mentioned.
@@ -40,5 +30,6 @@ module.exports.generateBlocks = () => {
         }
     }
 
+    // Terminate the file system.
     tempFieldsCode.end();
 }
