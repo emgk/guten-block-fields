@@ -1,12 +1,11 @@
 const fs = require('fs');
-const path = require('path');
 const ora = require('ora');
+const path = require('path');
 const chalk = require('chalk');
-const validateFn = require('./validates');
 const renderField = require('./renderField');
 
 // Get the fields.
-const inspectorControllers = require('../block-controllers.json');
+const inspectorControllers = require('../block-fields.json');
 
 // Loader.
 const spinner = ora({ text: '' });
@@ -20,11 +19,6 @@ var fieldBlocks = '';
 
 module.exports.generateBlocks = () => {
 
-    // Process start.
-    // spinner.start(
-    // chalk.blue(`Generating process has been started... \n`)
-    // );
-
     // If no field were mentioned.
     if (inspectorControllers.fields.length <= 0) {
         console.log(
@@ -37,6 +31,7 @@ module.exports.generateBlocks = () => {
     // Create file where all the field code would be store as temporarily.
     let tempFieldsCode = fs.createWriteStream(path.resolve(__dirname, '../tempFields.js'));
 
+    // Go through each of the field.
     for (field in inspectorControllers.fields) {
         switch (inspectorControllers.fields[field].type) {
             case 'text':
@@ -46,7 +41,4 @@ module.exports.generateBlocks = () => {
     }
 
     tempFieldsCode.end();
-    // setTimeout(() => {
-    // spinner.succeed(chalk.green(`File generated successfully!`));
-    // }, 1000);
 }

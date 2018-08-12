@@ -1,9 +1,10 @@
-const path = require('path');
 const fs = require('fs');
-const chalk = require('chalk');
 const ora = require('ora');
-
+const path = require('path');
+const chalk = require('chalk');
 const validate = require('./validates');
+
+// Set spinner.
 const spinner = ora({ text: '' });
 
 /**
