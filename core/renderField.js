@@ -35,6 +35,13 @@ const fieldSpinner = (field, iscompleted) => {
     }
 }
 
+/**
+ * Render the TextPlain field.
+ * 
+ * @since 1.0.0
+ * @param {object} field 
+ * @param {fs} file 
+ */
 module.exports.renderTextField = (field, file) => {
     // Get the template.
     let template = path.resolve(__dirname, '../gic-scripts/fields/TextPlain.tpl');
