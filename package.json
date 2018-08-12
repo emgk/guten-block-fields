@@ -12,6 +12,7 @@
     "guten-inspect-controller": "./index.js"
   },
   "dependencies": {
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "fs": "0.0.1-security"
   }
 }
