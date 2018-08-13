@@ -38,7 +38,7 @@ module.exports._gettp = (type) => {
     type = type || 'text';
 
     const relatedTemp = {
-        'text': '../gbf-scripts/fields/PlainText.tpl',
+        'text': '../gbf-scripts/fields/TextControl.tpl',
         'color': '../gbf-scripts/fields/ColorPalette.tpl',
     }
 
