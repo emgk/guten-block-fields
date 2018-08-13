@@ -22,6 +22,15 @@ const get_packages = (blockFields) => {
                 case 'checkbox':
                     _packages['wp.components'].push('CheckboxControl')
                     break;
+                case 'range':
+                    _packages['wp.components'].push('RangeControl')
+                    break;
+                case 'select':
+                    _packages['wp.components'].push('SelectControl')
+                    break;
+                case 'radio':
+                    _packages['wp.components'].push('RadioControl')
+                    break;
                 case 'button':
                 case 'button-group':
                     _packages['wp.components'].push('Button')

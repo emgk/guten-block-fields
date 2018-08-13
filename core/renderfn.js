@@ -82,6 +82,7 @@ module.exports._replacetag = () => {
             _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
         }
 
+        // for button.
         if ('button' === _current_field.type) {
             let _baseButtonTemp = _filesystem.readFileSync(
                 _path.resolve(__dirname, _helper._gettp('button'))
@@ -96,11 +97,35 @@ module.exports._replacetag = () => {
             _template = _baseButtonTemp;
         }
 
+        // for checkbox.
         if ('checkbox' === _current_field.type) {
             _template = _template.replace(`#checkbox-title#`, _current_field.title);
             _template = _template.replace(`#checkbox-label#`, _current_field.label);
             _template = _template.replace(`#checkbox-help#`, _current_field.help);
             _template = _template.replace(`#checkbox-isCheck#`, _current_field.checked);
+        }
+
+        // for radio.
+        if ('radio' === _current_field.type) {
+            _template = _template.replace(`#radio-label`, _current_field.label)
+            _template = _template.replace(`#radio-help`, _current_field.help)
+            _template = _template.replace(`#radio-option`, _current_field.option)
+            _template = _template.replace(`#radio-options`, _current_field.options)
+        }
+
+        // for select.
+        if ("select" === _current_field.type) {
+            _template = _template.replace(`#radio-label`, _current_field.label)
+            _template = _template.replace(`#radio-value`, _current_field.value)
+            _template = _template.replace(`#radio-options`, _current_field.options)
+        }
+
+        // for range slider.
+        if ("range" === _current_field.type) {
+            _template = _template.replace(`#range-label`, _current_field.label)
+            _template = _template.replace(`#range-value`, _current_field.value)
+            _template = _template.replace(`#range-min`, _current_field.min)
+            _template = _template.replace(`#range-max`, _current_field.max)
         }
 
         // For button group.

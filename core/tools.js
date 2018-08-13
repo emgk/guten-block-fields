@@ -45,6 +45,7 @@ module.exports._gettp = (type) => {
         'button-group': '../gbf-scripts/fields/ButtonGroup.tpl',
         'button': '../gbf-scripts/fields/Button.tpl',
         'checkbox': '../gbf-scripts/fields/CheckboxControl.tpl',
+        'radio': '../gbf-scripts/fields/RadioControl.tpl',
     }
 
     return relatedTemp[type] || '';
