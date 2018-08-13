@@ -24,7 +24,7 @@ module.exports.makeComponentName = (value) => {
  * @since 1.0.0
  */
 module.exports.getComponentTemplate = () => {
-    return require('path').resolve(__dirname, '../gic-scripts/blockComponent.tpl');
+    return require('path').resolve(__dirname, '../gbf-scripts/blockComponent.tpl');
 }
 
 /**
@@ -38,8 +38,8 @@ module.exports._gettp = (type) => {
     type = type || 'text';
 
     const relatedTemp = {
-        'text': '../gic-scripts/fields/PlainText.tpl',
-        'color': '../gic-scripts/fields/ColorPalette.tpl',
+        'text': '../gbf-scripts/fields/PlainText.tpl',
+        'color': '../gbf-scripts/fields/ColorPalette.tpl',
     }
 
     return relatedTemp[type] || '';
