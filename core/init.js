@@ -3,19 +3,18 @@ const _path = require('path');
 const _chalk = require('chalk');
 const _tools = require('./tools');
 
-// render func.
+// helper function to render the tools.
 const _render_field = require('./renderfn');
 
-// Get the fields.
+// get the block toolbar options and list of fields.
 const _blockFieldJSON = require('../block-fields.json');
 
-// Generate fields and blocks.
+// generate the blocks.
 module.exports.generateBlocks = () => {
-
-    // If no field were mentioned.
+    // when no field were passed.
     if (_blockFieldJSON.fields.length <= 0) {
         console.log(
-            _chalk.red(`No fields were mentioned!`)
+            _chalk.red(`Oops! seems like no fields were mentioned. Please refer to our documentation.`)
         );
         // Terminate the job.
         process.exit(1);
@@ -33,9 +32,10 @@ module.exports.generateBlocks = () => {
         }
     }
 
-    // Terminate the file system.
+    // close the file.
     _tmpblockfields.end();
 
+    // render the react component.
     setTimeout(() => {
         // Render the react block component.
         _render_field.renderReactComponent(
