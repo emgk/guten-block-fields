@@ -14,7 +14,7 @@ const get_packages = (blockFields) => {
             // type checking.
             switch (blockFields[field].type) {
                 case 'text':
-                    _packages['wp.editor'].push('PlainText');
+                    _packages['wp.editor'].push('TextControl');
                     break;
             }
 
