@@ -27,7 +27,7 @@ module.exports.generateBlocks = () => {
     for (field in _blockFieldJSON.fields) {
         switch (_blockFieldJSON.fields[field].type) {
             case 'text':
-                _render_field.renderTextField(_blockFieldJSON.fields[field], _tmpblockfields);
+                _render_field._renderTextField(_blockFieldJSON.fields[field], _tmpblockfields);
                 break;
         }
     }
@@ -39,7 +39,6 @@ module.exports.generateBlocks = () => {
     setTimeout(() => {
         // Render the react block component.
         _render_field.renderReactComponent(
-            _tools.makeComponentName(_blockFieldJSON.name),
             _blockFieldJSON
         );
     }, 100);

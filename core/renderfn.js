@@ -55,7 +55,7 @@ const field_spinner = (field, iscompleted) => {
  * @param {object} field 
  * @param {_filesystem} file 
  */
-module.exports.renderTextField = (field, file) => {
+module.exports._renderTextField = (field, file) => {
     // Get the template.
     let template = _path.resolve(__dirname, '../gic-scripts/fields/PlainText.tpl');
 
@@ -80,11 +80,10 @@ module.exports.renderTextField = (field, file) => {
  * 
  * @since 1.0.0
  * 
- * @param {String} componentName 
  * @param {String} packages 
  * @param {object} blockfields
  */
-module.exports.renderReactComponent = (componentName, blockfields) => {
+module.exports.renderReactComponent = (blockfields) => {
     // if no field found!
     if (!blockfields.fields.length) {
         // make fail.
