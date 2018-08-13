@@ -67,9 +67,6 @@ module.exports._replacetag = () => {
         _path.resolve(__dirname, '../tempFields.js'),
     );
 
-    // requires packages.
-    // _renderpkg._renderpkg(_blockFieldJSON.fields);
-
     for (field in _blockFieldJSON.fields) {
         let template = _helper._gettp(_blockFieldJSON.fields[field].type);
 
@@ -91,11 +88,9 @@ module.exports._replacetag = () => {
     }
 
     _tmpblockfields.end();
-    // _tmpblockfields.close();
-
-    // unlink temp files.
-    // _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
-    // _filesystem.unlinkSync(_path.resolve(__dirname, '../tempPKG.js'))
+    
+    // requires packages.
+    _renderpkg._renderpkg(_blockFieldJSON.fields);
 }
 
 /**
@@ -129,10 +124,10 @@ module.exports.renderReactComponent = () => {
     let _react_component = _filesystem.readFileSync(_helper.getComponentTemplate()).toString();
 
     // import packages.
-    // _react_component = _react_component.replace(
-        // `#import-packages#`,
-        // _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
-    // )
+    _react_component = _react_component.replace(
+        `#import-packages#`,
+        _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
+    )
 
     // set react component name.
     _react_component = _react_component.replace(
@@ -151,4 +146,8 @@ module.exports.renderReactComponent = () => {
         `${outputDir}/BlockControllers.js`,
         _react_component
     )
+
+    // unlink temp files.
+    _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
+    _filesystem.unlinkSync(_path.resolve(__dirname, '../tempPKG.js'))
 }
