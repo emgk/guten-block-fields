@@ -1,7 +1,7 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 const { __ } = wp.i18n;
-const { TextControl,PanelBody,BaseControl,CheckboxControl,Button,ButtonGroup } = wp.components; 
+const { TextControl,PanelBody,BaseControl,CheckboxControl,Button,ButtonGroup,SelectControl,RadioControl,RangeControl } = wp.components; 
 
 /**
  * MyControllers Block controller
@@ -47,9 +47,11 @@ class MyControllers extends Component {
 		onChange={ ( isChecked ) => {
 			 // setState( { isChecked } ) 
 		} }
-/><Button className="save" false>
+/>
+<Button className="save" false>
 	Save Changes
-</Button><ButtonGroup>
+</Button>
+<ButtonGroup>
      
 <Button isPrimary={true} className="red"> Red </Button> 
 <Button isPrimary={false} className="blue"> Blue </Button>
@@ -72,7 +74,27 @@ class MyControllers extends Component {
     }}
     value={ 123 }
 />
-
+<SelectControl
+		label="Country"
+		value={ india }
+		options={ [{"label":"India","value":"india"},{"label":"USA","value":"usa"}] }
+		onChange={ ( size ) => { /* setState( { size } ) */ } }
+/><RadioControl
+		label="Gender"
+		help="undefined"
+		selected={ undefined }
+		options={ [{"label":"Male","value":"m"},{"label":"Female","value":"f"}] }
+		onChange={ ( option ) => { 
+            setState( { option } ) 
+            } 
+        }
+/> <RangeControl
+        label="Volume"
+        value={40 }
+        onChange={ ( columns ) => /* setState( { columns }  )*/ }
+        min={ 1 }
+        max={ 100 }
+/>
             </InspectorControls>
         )
     }

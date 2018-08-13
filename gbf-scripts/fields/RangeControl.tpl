@@ -1,7 +1,7 @@
  <RangeControl
-        label="#range-label#"
+        label="#range-title#"
         value={#range-value# }
-        onChange={ ( columns ) => /* setState( { columns } */ ) }
+        onChange={ ( columns ) => /* setState( { columns }  )*/ }
         min={ #range-min# }
         max={ #range-max# }
 />

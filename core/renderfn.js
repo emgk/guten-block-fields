@@ -42,7 +42,7 @@ const field_spinner = (field, iscompleted) => {
         setTimeout(() => {
             _spinner.succeed(
                 _chalk.bgKeyword('white').black(` ${field.slug || field.title} `) +
-                _chalk.white(' field generated successfully..\n'));
+                _chalk.white('\n [Field generated successfully]\n'));
         }, 100);
     }
 }
@@ -72,9 +72,11 @@ module.exports._replacetag = () => {
             template = _helper._gettp(_current_field.type);
 
         // Get the file content.
-        let _template = _filesystem.readFileSync(
-            _path.resolve(__dirname, template.toString())
-        ).toString();
+        let _template = _helper._getFileContent(template.toString());
+
+        if (!_template) {
+            console.log('error');
+        }
 
         // text field in most cases.
         for (_replacetags in _helper._getrs()) {
@@ -84,9 +86,7 @@ module.exports._replacetag = () => {
 
         // for button.
         if ('button' === _current_field.type) {
-            let _baseButtonTemp = _filesystem.readFileSync(
-                _path.resolve(__dirname, _helper._gettp('button'))
-            ).toString()
+            let _baseButtonTemp = _helper._getFileContent(_helper._gettp('button'))
 
             let _buttonTag = '';
 
@@ -107,25 +107,25 @@ module.exports._replacetag = () => {
 
         // for radio.
         if ('radio' === _current_field.type) {
-            _template = _template.replace(`#radio-label`, _current_field.label)
-            _template = _template.replace(`#radio-help`, _current_field.help)
-            _template = _template.replace(`#radio-option`, _current_field.option)
-            _template = _template.replace(`#radio-options`, _current_field.options)
+            _template = _template.replace(`#radio-title#`, _current_field.title)
+            _template = _template.replace(`#radio-help#`, _current_field.help)
+            _template = _template.replace(`#radio-option#`, _current_field.option)
+            _template = _template.replace(`#radio-options#`, JSON.stringify(_current_field.options))
         }
 
         // for select.
         if ("select" === _current_field.type) {
-            _template = _template.replace(`#radio-label`, _current_field.label)
-            _template = _template.replace(`#radio-value`, _current_field.value)
-            _template = _template.replace(`#radio-options`, _current_field.options)
+            _template = _template.replace(`#select-title#`, _current_field.title)
+            _template = _template.replace(`#select-value#`, _current_field.value)
+            _template = _template.replace(`#select-options#`, JSON.stringify(_current_field.options))
         }
 
         // for range slider.
         if ("range" === _current_field.type) {
-            _template = _template.replace(`#range-label`, _current_field.label)
-            _template = _template.replace(`#range-value`, _current_field.value)
-            _template = _template.replace(`#range-min`, _current_field.min)
-            _template = _template.replace(`#range-max`, _current_field.max)
+            _template = _template.replace(`#range-title#`, _current_field.title)
+            _template = _template.replace(`#range-value#`, _current_field.value)
+            _template = _template.replace(`#range-min#`, _current_field.min)
+            _template = _template.replace(`#range-max#`, _current_field.max)
         }
 
         // For button group.
@@ -134,9 +134,8 @@ module.exports._replacetag = () => {
                 _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
             }
 
-            let _baseButtonGroupTemp = _filesystem.readFileSync(
-                _path.resolve(__dirname, _helper._gettp('button-group'))
-            ).toString()
+            // get the template of button group.
+            let _baseButtonGroupTemp = _helper._getFileContent(_helper._gettp('button-group'));
 
             let buttonsHtml = '';
 

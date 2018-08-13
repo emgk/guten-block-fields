@@ -33,6 +33,7 @@
             "title": "Save Changes"
         },
         {
+            "title" : "Button Group",
             "type": "button-group",
             "buttons": [
                 {
@@ -62,10 +63,41 @@
             "attributeName": "name"
         },
         {
-            "title": "Background Color",
-            "slug": "background-color",
-            "type": "color",
-            "props": "bgcolor"
+            "type": "select",
+            "value": "india",
+            "title": "Country",
+            "options": [
+                {
+                    "label": "India",
+                    "value": "india"
+                },
+                {
+                    "label": "USA",
+                    "value": "usa"
+                }
+            ]
+        },
+        {
+            "type": "radio",
+            "title": "Gender",
+            "value": "male",
+            "options": [
+                {
+                    "label": "Male",
+                    "value": "m"
+                },
+                {
+                    "label": "Female",
+                    "value": "f"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "title": "Volume",
+            "min": 1,
+            "max": 100,
+            "value": 40
         }
     ]
 }

@@ -39,13 +39,14 @@ module.exports._gettp = (type) => {
 
     const relatedTemp = {
         'text': '../gbf-scripts/fields/TextControl.tpl',
-        'color': '../gbf-scripts/fields/ColorPalette.tpl',
         'toggle': '../gbf-scripts/PanelBody.tpl',
         'basecontrol': '../gbf-scripts/fields/BaseControl.tpl',
         'button-group': '../gbf-scripts/fields/ButtonGroup.tpl',
         'button': '../gbf-scripts/fields/Button.tpl',
         'checkbox': '../gbf-scripts/fields/CheckboxControl.tpl',
         'radio': '../gbf-scripts/fields/RadioControl.tpl',
+        'range': '../gbf-scripts/fields/RangeControl.tpl',
+        'select': '../gbf-scripts/fields/SelectControl.tpl',
     }
 
     return relatedTemp[type] || '';
@@ -84,5 +85,27 @@ module.exports._terminate_with_msg = (msg, terminate = false) => {
 
     if (terminate) {
         process.exit(1);
+    }
+}
+
+/**
+ * get the file content.
+ * 
+ * @since 1.0.0
+ * 
+ * @param {String} file 
+ */
+module.exports._getFileContent = (file) => {
+    const _fs = require('fs-extra');
+    const _path = require('path');
+
+    try {
+        let _content = _fs.readFileSync(
+            _path.resolve(__dirname, file.toString())
+        );
+
+        return _content.toString();
+    } catch (e) {
+        this._terminate_with_msg(e, true);
     }
 }

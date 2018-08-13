@@ -1,5 +1,5 @@
 <RadioControl
-		label="#radio-label#"
+		label="#radio-title#"
 		help="#radio-help#"
 		selected={ #radio-option# }
 		options={ #radio-options# }
