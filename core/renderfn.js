@@ -96,6 +96,13 @@ module.exports._replacetag = () => {
             _template = _baseButtonTemp;
         }
 
+        if ('checkbox' === _current_field.type) {
+            _template = _template.replace(`#checkbox-title#`, _current_field.title);
+            _template = _template.replace(`#checkbox-label#`, _current_field.label);
+            _template = _template.replace(`#checkbox-help#`, _current_field.help);
+            _template = _template.replace(`#checkbox-isCheck#`, _current_field.checked);
+        }
+
         // For button group.
         if ('button-group' === _current_field.type) {
             if (_current_field.buttons.length <= 0) {

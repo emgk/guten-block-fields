@@ -19,6 +19,9 @@ const get_packages = (blockFields) => {
                 case 'text':
                     _packages['wp.components'].push('TextControl');
                     break;
+                case 'checkbox':
+                    _packages['wp.components'].push('CheckboxControl')
+                    break;
                 case 'button':
                 case 'button-group':
                     _packages['wp.components'].push('Button')
@@ -35,8 +38,6 @@ const get_packages = (blockFields) => {
             if (true === blockFields[field].baseControl) {
                 _packages['wp.components'].push('BaseControl')
             }
-
-
 
             // processed.
             _already_procced.push(blockFields[field].type);
@@ -62,7 +63,7 @@ module.exports._renderpkg = (fields) => {
             continue;
         }
         tempPkg.write(
-            `const { ${_packages[component].join(',')} } = ${component}; \n`
+            `const { ${_packages[component].filter((el, i, a) => i === a.indexOf(el)).join(',')} } = ${component}; \n`
         )
     }
     tempPkg.end();

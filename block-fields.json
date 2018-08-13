@@ -20,9 +20,16 @@
             }
         },
         {
+            "title": "Accept t&c",
+            "label": "Sample",
+            "help": "This is help section",
+            "checked": true,
+            "type": "checkbox"
+        },
+        {
             "type": "button",
             "default": false,
-            "class" : "save",
+            "class": "save",
             "title": "Save Changes"
         },
         {
