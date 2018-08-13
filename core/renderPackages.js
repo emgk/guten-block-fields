@@ -19,6 +19,11 @@ const get_packages = (blockFields) => {
                 case 'text':
                     _packages['wp.components'].push('TextControl');
                     break;
+                case 'button':
+                case 'button-group':
+                    _packages['wp.components'].push('ButtonGroup')
+                    _packages['wp.components'].push('ButtonGroup')
+                    break;
             }
 
             // import toggle lib
@@ -30,6 +35,8 @@ const get_packages = (blockFields) => {
             if (true === blockFields[field].baseControl) {
                 _packages['wp.components'].push('BaseControl')
             }
+
+
 
             // processed.
             _already_procced.push(blockFields[field].type);

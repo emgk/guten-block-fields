@@ -41,7 +41,8 @@ module.exports._gettp = (type) => {
         'text': '../gbf-scripts/fields/TextControl.tpl',
         'color': '../gbf-scripts/fields/ColorPalette.tpl',
         'toggle': '../gbf-scripts/PanelBody.tpl',
-        'basecontrol': '../gbf-scripts/fields/BaseControl.tpl'
+        'basecontrol': '../gbf-scripts/fields/BaseControl.tpl',
+        'button-group': '../gbf-scripts/fields/ButtonGroup.tpl',
     }
 
     return relatedTemp[type] || '';

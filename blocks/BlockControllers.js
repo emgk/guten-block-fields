@@ -37,7 +37,12 @@ class MyControllers extends Component {
                         />
 
                     </BaseControl>
+
                 </PanelBody>
+                <ButtonGroup>
+                    <Button isPrimary={true} className="red" > Red </Button>
+                    <Button isPrimary={true} className="blue" > Blue </Button>
+                </ButtonGroup>
                 <TextControl
                     label={__('Your father name')}
                     className="guten-field-father-name"

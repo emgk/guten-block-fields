@@ -20,6 +20,21 @@
             }
         },
         {
+            "type": "button-group",
+            "buttons": [
+                {
+                    "isPrimary": true,
+                    "class": "red",
+                    "label": "Red"
+                },
+                {
+                    "isPrimary": false,
+                    "class": "blue",
+                    "label": "Blue"
+                }
+            ]
+        },
+        {
             "title": "Your father name",
             "slug": "father-name",
             "type": "text",

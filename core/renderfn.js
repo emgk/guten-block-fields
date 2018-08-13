@@ -76,9 +76,30 @@ module.exports._replacetag = () => {
             _path.resolve(__dirname, template.toString())
         ).toString();
 
+        // text field in most cases.
         for (_replacetags in _helper._getrs()) {
             let _rt = new RegExp(_replacetags, "g")
             _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
+        }
+
+        // For button group.
+        if ('button-group' === _current_field.type) {
+            if (_current_field.buttons.length <= 0) {
+                _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
+            }
+
+            let _baseButtonGroupTemp = _filesystem.readFileSync(
+                _path.resolve(__dirname, _helper._gettp('button-group'))
+            ).toString()
+
+            let buttonsHtml = '';
+
+            for (button in _current_field.buttons) {
+                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary || 'true '}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
+            }
+
+            _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
+            _template = _baseButtonGroupTemp;
         }
 
         // base control.
