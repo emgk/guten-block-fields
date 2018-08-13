@@ -52,20 +52,30 @@ const field_spinner = (field, iscompleted) => {
  * @param {object} _field 
  */
 module.exports._replacetag = (_field) => {
+    // get the configuration.
+    const _blockFieldJSON = require('../block-fields.json');
+
+    // store field temporily.
     let _tmpblockfields = _filesystem.createWriteStream(
         _path.resolve(__dirname, '../tempFields.js')
     );
 
     // get the template.
-    let template = require('./fieldcode')(_field.type);
+    let template = _helper._gettp(_field.type);
 
     // Get the file content.
-    let textFieldCode = _filesystem.readFileSync(
+    let _template = _filesystem.readFileSync(
         _path.resolve(__dirname, template.toString())
     ).toString();
 
-    
-    
+    for (_replacetag in _helper._getrs()) {
+        let _rt = new RegExp(_replacetag, "g")
+        _template = _template.replace(_rt, _field[_helper._getrs()[_replacetag]] || '')
+    }
+
+    // write content.
+    _tmpblockfields.write(_template);
+
     field_spinner(_field, true);
 
     _tmpblockfields.close();
