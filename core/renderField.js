@@ -1,6 +1,7 @@
 const fs = require('fs');
 const ora = require('ora');
 const path = require('path');
+const shell = require('shelljs');
 const chalk = require('chalk');
 const validate = require('./validates');
 const renderPackages = require('./renderPackages');
@@ -91,6 +92,12 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
         reactComponentClass = path.resolve(__dirname, '../gic-scripts/blockComponent'),
         packageListCode = fs.readFileSync(path.resolve(__dirname, '../tempPKG.js')).toString();
 
-    console.log(blockfields.output);
+    let outputDir = blockfields.output || './BlockControllers';
+
+    if (!fs.existsSync(blockfields.output)) {
+        shell.mkdir('-p', blockfields.output);
+    }
+
+
 
 };
