@@ -7,9 +7,7 @@ class <%InspectorController%> extends Component {
     constructor(props) {
         super(this);
     }
-
-    <%functions%>
-
+    
     render() {
         return(
             <InspectorControls>
