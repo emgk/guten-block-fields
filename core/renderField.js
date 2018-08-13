@@ -102,11 +102,26 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
     // Get react component template.
     let ReactComponent = fs.readFileSync(helper.getComponentTemplate()).toString();
 
-    ReactComponent = ReactComponent.replace(`#import-packages#`, packageListCode);
+    // import packages.
+    ReactComponent = ReactComponent.replace(
+        `#import-packages#`,
+        packageListCode
+    )
+
+    // Set ReactComponent name.
+    ReactComponent = ReactComponent.replace(
+        /#ComponentName#/g,
+        helper.makeComponentName(blockfields.name)
+    )
+
+    // import fields.
+    ReactComponent = ReactComponent.replace(
+        `#fields#`,
+        fs.readFileSync(path.resolve(__dirname, '../tempFields.js')).toString()
+    )
 
     fs.writeFileSync(
         `${outputDir}/BlockControllers.js`,
         ReactComponent
-    );
-
-};
+    )
+}

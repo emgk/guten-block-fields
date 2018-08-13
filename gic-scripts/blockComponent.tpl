@@ -2,13 +2,16 @@ const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 #import-packages#
 /**
- * #ComponentName# 
+ * #ComponentName# Block controller
  * 
  */
 class #ComponentName# extends Component {
+   
     /**
-    * Constructor method. 
-    */
+     * Constructor method.
+     * 
+     * @param {*} props 
+     */
     constructor(props) {
         super(this);
     }
