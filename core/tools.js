@@ -40,7 +40,7 @@ module.exports._gettp = (type) => {
     const relatedTemp = {
         'text': '../gbf-scripts/fields/TextControl.tpl',
         'color': '../gbf-scripts/fields/ColorPalette.tpl',
-        'toggle': '../gbf-scripts/fields/PanelBody.tpl'
+        'toggle': '../gbf-scripts/PanelBody.tpl'
     }
 
     return relatedTemp[type] || '';
@@ -60,4 +60,24 @@ module.exports._getrs = () => {
         '#field-value#': 'value',
         '#field-attributeName#': 'attributeName'
     };
+}
+
+/**
+ * Show message and terminate.
+ * 
+ * @since 1.0.0
+ * 
+ * @param {*} msg 
+ * @param {boolean} msg 
+ */
+module.exports._terminate_with_msg = (msg, terminate = false) => {
+    const _chalk = require('chalk');
+
+    console.log(
+        _chalk.bgKeyword('red').white(`Error: ${msg}`)
+    )
+
+    if (terminate) {
+        process.exit(1);
+    }
 }

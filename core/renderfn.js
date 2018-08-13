@@ -81,8 +81,19 @@ module.exports._replacetag = () => {
             _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
         }
 
-        if ( _current_field.toggle ) {
-            
+        if (_current_field.toggle) {
+            if (!_current_field.toggleOption) {
+                _helper._terminate_with_msg(` "toggleOption" were not passed for field "${_current_field.title}"`, true);
+            }
+
+            // get the PanelBody.
+            let _panelTemplate = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString();
+
+            _panelTemplate = _panelTemplate.replace('#toggle-isOpen#', _current_field.toggleOption.isOpen.toString() || false);
+            _panelTemplate = _panelTemplate.replace('#toggle-title#', _current_field.toggleOption.title || _current_field.title);
+            _panelTemplate = _panelTemplate.replace('#toogle-body#', `${_template}`);
+
+            _template = _panelTemplate;
         }
 
         // write content.
