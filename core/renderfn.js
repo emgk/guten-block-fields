@@ -25,10 +25,11 @@ const _blockFieldJSON = require('../block-fields.json');
  * @param {boolean} iscompleted 
  */
 const field_spinner = (field, iscompleted) => {
+
     // Set start.
     _spinner.start(
         console.log(
-            _chalk.bgKeyword('purple').white(`${field.slug || field.title}`) + _chalk.white(` field is rendering..\n`)
+            _chalk.bgKeyword('purple').white(`${field.slug || field.title}`) + _chalk.white(`\n[field is creating..]\n`)
         )
     )
 
@@ -42,7 +43,7 @@ const field_spinner = (field, iscompleted) => {
         setTimeout(() => {
             _spinner.succeed(
                 _chalk.bgKeyword('white').black(` ${field.slug || field.title} `) +
-                _chalk.white('\n [Field generated successfully]\n'));
+                _chalk.white('\n [100% completed..]\n'));
         }, 100);
     }
 }
@@ -75,7 +76,26 @@ module.exports._replacetag = () => {
         let _template = _helper._getFileContent(template.toString());
 
         if (!_template) {
-            console.log('error');
+            _helper._terminate_with_msg(`Template isn't found for field "${_current_field.title}"`, true);
+        }
+
+        // base control.
+        if ("undefined" === typeof _current_field.baseControl || true === _current_field.baseControl) {
+            _current_field.baseControl = true;
+
+            let _basecontrolTemplate = _filesystem.readFileSync(
+                _path.resolve(__dirname, _helper._gettp('basecontrol'))
+            ).toString()
+
+            const label = _current_field.baseControlOption ? _current_field.baseControlOption.label : '';
+            const help = _current_field.baseControlOption ? _current_field.baseControlOption.help : '';
+
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${label}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${help}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
+
+            _template = _basecontrolTemplate;
         }
 
         // text field in most cases.
@@ -145,24 +165,6 @@ module.exports._replacetag = () => {
 
             _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
             _template = _baseButtonGroupTemp;
-        }
-
-        // base control.
-        if (_current_field.baseControl) {
-            if (!_current_field.baseControlOption) {
-                _helper._terminate_with_msg(` "baseControlOption" were not passed for field "${_current_field.title}"`, true);
-            }
-
-            let _basecontrolTemplate = _filesystem.readFileSync(
-                _path.resolve(__dirname, _helper._gettp('basecontrol'))
-            ).toString()
-
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${_current_field.baseControlOption.label || ''}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${_current_field.baseControlOption.help || ''}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
-
-            _template = _basecontrolTemplate;
         }
 
         // toggle option.
@@ -251,4 +253,17 @@ module.exports.renderReactComponent = () => {
     // unlink temp files.
     _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
     _filesystem.unlinkSync(_path.resolve(__dirname, '../tempPKG.js'))
+
+    console.log(
+        _chalk
+            .blue(`Inspect Controller has been generated, add this below code at the top of your block file.`) +
+        _chalk
+            .bgKeyword('black')
+            .yellow(`\n\nimport { ${_helper.makeComponentName(_blockFieldJSON.name)}} from '${outputDir}/BlockControllers';`) +
+        _chalk
+            .blue(`\n\n and add this Tag to your block's edit method \n\n`) +
+        _chalk
+            .bgKeyword('black')
+            .yellow(`<${_helper.makeComponentName(_blockFieldJSON.name)}/>`)
+    )
 }

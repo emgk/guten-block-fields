@@ -8,16 +8,7 @@
             "type": "text",
             "value": 123,
             "attributeName": "name",
-            "toggle": true,
-            "baseControl": true,
-            "toggleOption": {
-                "title": "Your name please.",
-                "isOpen": false
-            },
-            "baseControlOption": {
-                "label": "Enter your name",
-                "help": "your name will help us to identify you!"
-            }
+            "baseControl": true
         },
         {
             "title": "Accept t&c",
@@ -33,7 +24,7 @@
             "title": "Save Changes"
         },
         {
-            "title" : "Button Group",
+            "title": "Button Group",
             "type": "button-group",
             "buttons": [
                 {

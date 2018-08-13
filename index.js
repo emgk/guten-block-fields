@@ -12,11 +12,10 @@ let { c, blockname } = '';
 
 // Set the command.
 program
+    .option('<make>', 'generate fields')
     .version('1.0.0')
-    .arguments('<cmd> [block]')
-    .action((cmd, block) => {
+    .action((cmd) => {
         c = cmd;
-        blockname = block;
     });
 
 // Parse the arguments.
@@ -30,7 +29,7 @@ if (typeof c === "undefined") {
 
 // run the script.
 switch (c) {
-    case 'generate':
+    case 'make':
         // Generate file.
         createControllers.generateBlocks();
         break;
