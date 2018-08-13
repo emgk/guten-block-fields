@@ -1,0 +1,19 @@
+{
+    "name": "My Controllers",
+    "output": "./blocks",
+    "fields": [
+        {
+            "title": "Your Name",
+            "slug": "your-name",
+            "type": "text",
+            "value": 123,
+            "attributeName": "name"
+        },
+        {
+            "title": "Background Color",
+            "slug": "background-color",
+            "type": "color",
+            "props": "bgcolor"
+        }
+    ]
+}
