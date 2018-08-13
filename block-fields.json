@@ -20,6 +20,12 @@
             }
         },
         {
+            "type": "button",
+            "default": false,
+            "class" : "save",
+            "title": "Save Changes"
+        },
+        {
             "type": "button-group",
             "buttons": [
                 {

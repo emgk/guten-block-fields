@@ -1,7 +1,7 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 const { __ } = wp.i18n;
-const { TextControl, PanelBody, BaseControl } = wp.components;
+const { TextControl, PanelBody, BaseControl, Button, ButtonGroup, Button, ButtonGroup } = wp.components;
 
 /**
  * MyControllers Block controller
@@ -39,9 +39,12 @@ class MyControllers extends Component {
                     </BaseControl>
 
                 </PanelBody>
-                <ButtonGroup>
-                    <Button isPrimary={true} className="red" > Red </Button>
-                    <Button isPrimary={true} className="blue" > Blue </Button>
+                <Button className={'save'} false>
+                    Save Changes
+</Button><ButtonGroup>
+
+                    <Button isPrimary={true} className="red"> Red </Button>
+                    <Button isPrimary={false} className="blue"> Blue </Button>
                 </ButtonGroup>
                 <TextControl
                     label={__('Your father name')}

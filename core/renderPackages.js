@@ -21,7 +21,7 @@ const get_packages = (blockFields) => {
                     break;
                 case 'button':
                 case 'button-group':
-                    _packages['wp.components'].push('ButtonGroup')
+                    _packages['wp.components'].push('Button')
                     _packages['wp.components'].push('ButtonGroup')
                     break;
             }

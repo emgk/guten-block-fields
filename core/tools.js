@@ -43,6 +43,7 @@ module.exports._gettp = (type) => {
         'toggle': '../gbf-scripts/PanelBody.tpl',
         'basecontrol': '../gbf-scripts/fields/BaseControl.tpl',
         'button-group': '../gbf-scripts/fields/ButtonGroup.tpl',
+        'button': '../gbf-scripts/fields/Button.tpl',
     }
 
     return relatedTemp[type] || '';

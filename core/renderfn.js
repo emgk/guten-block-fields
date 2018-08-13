@@ -28,20 +28,20 @@ const field_spinner = (field, iscompleted) => {
     // Set start.
     _spinner.start(
         console.log(
-            _chalk.bgKeyword('purple').white(`${field.slug}`) + _chalk.white(` field is rendering..\n`)
+            _chalk.bgKeyword('purple').white(`${field.slug || field.title}`) + _chalk.white(` field is rendering..\n`)
         )
     )
 
     // If isn't completed.
     if (!iscompleted) {
         _spinner.fail(
-            _chalk.bgKeyword('red').black(`"${field.slug}" unable to generated.`)
+            _chalk.bgKeyword('red').black(`"${field.slug || field.title}" unable to generated.`)
         )
     } else {
         // Completed.
         setTimeout(() => {
             _spinner.succeed(
-                _chalk.bgKeyword('white').black(` ${field.slug} `) +
+                _chalk.bgKeyword('white').black(` ${field.slug || field.title} `) +
                 _chalk.white(' field generated successfully..\n'));
         }, 100);
     }
@@ -82,6 +82,20 @@ module.exports._replacetag = () => {
             _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
         }
 
+        if ('button' === _current_field.type) {
+            let _baseButtonTemp = _filesystem.readFileSync(
+                _path.resolve(__dirname, _helper._gettp('button'))
+            ).toString()
+
+            let _buttonTag = '';
+
+            _baseButtonTemp = _baseButtonTemp.replace(`#button-isDefault#`, _current_field.default);
+            _baseButtonTemp = _baseButtonTemp.replace(`#button-label#`, _current_field.title);
+            _baseButtonTemp = _baseButtonTemp.replace(`#button-class#`, _current_field.class);
+
+            _template = _baseButtonTemp;
+        }
+
         // For button group.
         if ('button-group' === _current_field.type) {
             if (_current_field.buttons.length <= 0) {
@@ -95,7 +109,7 @@ module.exports._replacetag = () => {
             let buttonsHtml = '';
 
             for (button in _current_field.buttons) {
-                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary || 'true '}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
+                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
             }
 
             _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
