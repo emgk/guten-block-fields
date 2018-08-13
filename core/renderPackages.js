@@ -8,16 +8,20 @@ let packages = {
 // Get packages.
 const getPackages = (blockFields) => {
     return new Promise((resolve, reject) => {
+        let _already_procced = [];
 
         // Go through each of the field.
         for (field in blockFields) {
+            if (!_already_procced.includes(blockFields[field].type)) {
+                // type checking.
+                switch (blockFields[field].type) {
+                    case 'text':
+                        packages['wp.editor'].push('PlainText');
+                        break;
+                }
 
-            // type checking.
-            switch (blockFields[field].type) {
-                case 'text':
-                    packages['wp.editor'].push('PlainText');
-                    packages['wp.editor'].push('RichText');
-                    break;
+                // processed.
+                _already_procced.push(blockFields[field].type);
             }
         }
 

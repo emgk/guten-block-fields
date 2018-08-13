@@ -11,7 +11,7 @@ const _helper = require('./tools');
 const _renderpkg = require('./renderPackages');
 
 // Set _spinner.
-const _spinner = _ora({ text: '' });
+const _spinner = _ora({ text: 'Generating has been started!' });
 
 /**
  * Show status of the field generator.
@@ -22,23 +22,28 @@ const _spinner = _ora({ text: '' });
  * @param {boolean} iscompleted 
  */
 const field_spinner = (field, iscompleted) => {
-    // Set start.
-    _spinner.start(
-        console.log(
-            _chalk.green(`Generating field "${field.title}"`)
+
+    setTimeout(() => {
+        // Set start.
+        _spinner.start(
+            console.log(
+                _chalk.bgKeyword('purple').white(`${field.slug}`) + _chalk.white(` field is rendering..\n`)
+            )
         )
-    );
+    }, 100)
 
     // If isn't completed.
     if (!iscompleted) {
         _spinner.fail(
-            _chalk.red(`"${field.title}" unable to generated.`)
+            _chalk.bgKeyword('red').black(`"${field.slug}" unable to generated.`)
         )
     } else {
         // Completed.
         setTimeout(() => {
-            _spinner.succeed(_chalk.green(`"${field.title}" field generated successfully!`));
-        }, 2000);
+            _spinner.succeed(
+                _chalk.bgKeyword('white').black(` ${field.slug} `) +
+                _chalk.white(' field generated successfully..\n'));
+        }, 100);
     }
 }
 
@@ -123,6 +128,7 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
         _filesystem.readFileSync(_path.resolve(__dirname, '../tempFields.js')).toString()
     )
 
+    // Todo: format the file.
     _filesystem.writeFileSync(
         `${outputDir}/BlockControllers.js`,
         _react_component
