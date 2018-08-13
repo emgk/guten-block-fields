@@ -68,7 +68,8 @@ module.exports._replacetag = () => {
     );
 
     for (field in _blockFieldJSON.fields) {
-        let template = _helper._gettp(_blockFieldJSON.fields[field].type);
+        let _current_field = _blockFieldJSON.fields[field],
+            template = _helper._gettp(_current_field.type);
 
         // Get the file content.
         let _template = _filesystem.readFileSync(
@@ -77,18 +78,22 @@ module.exports._replacetag = () => {
 
         for (_replacetags in _helper._getrs()) {
             let _rt = new RegExp(_replacetags, "g")
-            _template = _template.replace(_rt, _blockFieldJSON.fields[field][_helper._getrs()[_replacetags]] || '')
+            _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
+        }
+
+        if ( _current_field.toggle ) {
+            
         }
 
         // write content.
         _tmpblockfields.write(_template);
 
         // field created.
-        field_spinner(_blockFieldJSON.fields[field], true);
+        field_spinner(_current_field, true);
     }
 
     _tmpblockfields.end();
-    
+
     // requires packages.
     _renderpkg._renderpkg(_blockFieldJSON.fields);
 }

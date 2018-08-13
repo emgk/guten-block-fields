@@ -2,7 +2,10 @@ const _fs = require('fs-extra');
 const _path = require('path');
 
 // store packages.
-let _packages = { 'wp.editor': [], 'wp.components': [] };
+let _packages = {
+    'wp.editor': [],
+    'wp.components': []
+}
 
 // get packages.
 const get_packages = (blockFields) => {
@@ -16,6 +19,11 @@ const get_packages = (blockFields) => {
                 case 'text':
                     _packages['wp.components'].push('TextControl');
                     break;
+            }
+
+            // import toggle lib
+            if (true === blockFields[field].toggle) {
+                _packages['wp.components'].push('PanelBody');
             }
 
             // processed.
@@ -38,6 +46,9 @@ module.exports._renderpkg = (fields) => {
     let tempPkg = _fs.createWriteStream(_path.resolve(__dirname, '../tempPKG.js'));
 
     for (component in _packages) {
+        if (_packages[component].length === 0) {
+            continue;
+        }
         tempPkg.write(
             `const { ${_packages[component].join(',')} } = ${component}; \n`
         )

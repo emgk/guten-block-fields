@@ -1,6 +1,6 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
-const { TextControl } = wp.editor; 
+const { TextControl } = wp.components; 
 
 /**
  * MyControllers Block controller

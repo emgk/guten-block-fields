@@ -1,5 +1,6 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
+const { __ } = wp.i18n;
 #import-packages#
 /**
  * #ComponentName# Block controller

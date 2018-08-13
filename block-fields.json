@@ -7,7 +7,12 @@
             "slug": "your-name",
             "type": "text",
             "value": 123,
-            "attributeName": "name"
+            "attributeName": "name",
+            "toggle": true,
+            "toggleOption": {
+                "title": "Your name please.",
+                "isOpen": false
+            }
         },
         {
             "title": "Your father name",
