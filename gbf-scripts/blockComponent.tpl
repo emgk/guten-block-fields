@@ -14,7 +14,7 @@ class #ComponentName# extends Component {
      * @param {*} props 
      */
     constructor(props) {
-        super(this);
+        super(...arguments);
     }
 
     /**

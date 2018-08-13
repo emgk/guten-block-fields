@@ -15,7 +15,7 @@ class MyControllers extends Component {
      * @param {*} props 
      */
     constructor(props) {
-        super(this);
+        super(...arguments);
     }
 
     /**
@@ -25,7 +25,6 @@ class MyControllers extends Component {
         return (
             <InspectorControls>
                 <PanelBody initialOpen={false} title={[__('Your name please.')]}>
-
                     <TextControl
                         label={__('Your Name')}
                         className="guten-field-your-name"
@@ -36,7 +35,8 @@ class MyControllers extends Component {
                         value={123}
                     />
 
-                </PanelBody><TextControl
+                </PanelBody>
+                <TextControl
                     label={__('Your father name')}
                     className="guten-field-father-name"
                     onChange={(value) => {
