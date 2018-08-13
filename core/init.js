@@ -33,6 +33,7 @@ module.exports.generateBlocks = () => {
                 break;
         }
     }
+    
 
     // Render the react block component.
     renderField.renderReactComponent(blockComponentName);

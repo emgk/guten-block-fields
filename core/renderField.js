@@ -3,6 +3,7 @@ const ora = require('ora');
 const path = require('path');
 const chalk = require('chalk');
 const validate = require('./validates');
+const packagesfn = require('./packagefn');
 
 // Set spinner.
 const spinner = ora({ text: '' });
@@ -35,10 +36,6 @@ const fieldSpinner = (field, iscompleted) => {
         }, 2000);
     }
 }
-
-
-// Create file where all the field code would be store as temporarily.
-let packageToImport = fs.createWriteStream(path.resolve(__dirname, '../tempPKG.js'));
 
 /**
  * Render the TextPlain field.
@@ -77,9 +74,24 @@ module.exports.renderTextField = (field, file) => {
  * @param {String} packages 
  * @param {String} fields 
  */
-module.exports.renderReactComponent = (componentName, packages, fields) => {
+module.exports.renderReactComponent = (componentName, fields) => {
     // Get the block component template.
     let blockComponent = path.resolve(__dirname, '../gic-scripts/blockComponent');
 
+    if (!fields.length) {
+        spinner.fail(
+            chalk.red(`no fields to process`)
+        )
+        process.exit(1)
+    }
+
+
+    // Store packages code.
+    let packageToImport = fs.createWriteStream(path.resolve(__dirname, '../tempPKG.js'));
+
+    // Require packages.
+    let pacakges = packagesfn.getPackages(fields);
+
+    console.log(pacakges);
 
 };
