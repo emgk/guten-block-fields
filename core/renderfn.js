@@ -91,42 +91,40 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
         process.exit(1)
     }
 
-    // Require packages.
+    // requires packages.
     _renderpkg(blockfields.fields);
 
-    // Get the block component template.
-    let
-        packageListCode = _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString();
-
+    // output dir.
     let outputDir = blockfields.output || './BlockControllers';
 
+    // check if exists.
     if (!_filesystem.existsSync(outputDir)) {
         _shell.mkdir('-p', outputDir);
     }
 
     // Get react component template.
-    let ReactComponent = _filesystem.readFileSync(_helper.getComponentTemplate()).toString();
+    let _react_component = _filesystem.readFileSync(_helper.getComponentTemplate()).toString();
 
     // import packages.
-    ReactComponent = ReactComponent.replace(
+    _react_component = _react_component.replace(
         `#import-packages#`,
-        packageListCode
+        _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
     )
 
-    // Set ReactComponent name.
-    ReactComponent = ReactComponent.replace(
+    // set react component name.
+    _react_component = _react_component.replace(
         /#ComponentName#/g,
         _helper.makeComponentName(blockfields.name)
     )
 
     // import fields.
-    ReactComponent = ReactComponent.replace(
+    _react_component = _react_component.replace(
         `#fields#`,
         _filesystem.readFileSync(_path.resolve(__dirname, '../tempFields.js')).toString()
     )
 
     _filesystem.writeFileSync(
         `${outputDir}/BlockControllers.js`,
-        ReactComponent
+        _react_component
     )
 }

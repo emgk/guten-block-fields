@@ -10,6 +10,20 @@
             "attributeName": "name"
         },
         {
+            "title": "Your father name",
+            "slug": "father-name",
+            "type": "text",
+            "value": 123,
+            "attributeName": "name"
+        },
+        {
+            "title": "City name",
+            "slug": "city-name",
+            "type": "text",
+            "value": 123,
+            "attributeName": "name"
+        },
+        {
             "title": "Background Color",
             "slug": "background-color",
             "type": "color",
