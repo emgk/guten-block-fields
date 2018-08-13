@@ -1,6 +1,6 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
-const { PlainText,RichText } = wp.editor; 
+const { PlainText,RichText,PlainText,RichText,PlainText,RichText } = wp.editor; 
 
 /**
  * MyControllers Block controller

@@ -1,5 +1,3 @@
-const path = require('path');
-
 /**
  * Validate and get the field name.
  * 
@@ -26,5 +24,5 @@ module.exports.makeComponentName = (value) => {
  * @since 1.0.0
  */
 module.exports.getComponentTemplate = () => {
-    return path.resolve(__dirname, '../gic-scripts/blockComponent.tpl');
+    return require('path').resolve(__dirname, '../gic-scripts/blockComponent.tpl');
 }
