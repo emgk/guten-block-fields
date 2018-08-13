@@ -1,12 +1,11 @@
-const fs = require('fs-extra');
-const path = require('path');
+const _fs = require('fs-extra');
+const _path = require('path');
 
-let packages = {
-    'wp.editor': [] // Store packages.
-};
+// store packages.
+let _packages = { 'wp.editor': [] };
 
-// Get packages.
-const getPackages = (blockFields) => {
+// get packages.
+const get_packages = (blockFields) => {
     return new Promise((resolve, reject) => {
         let _already_procced = [];
 
@@ -16,7 +15,7 @@ const getPackages = (blockFields) => {
                 // type checking.
                 switch (blockFields[field].type) {
                     case 'text':
-                        packages['wp.editor'].push('PlainText');
+                        _packages['wp.editor'].push('PlainText');
                         break;
                 }
 
@@ -26,33 +25,31 @@ const getPackages = (blockFields) => {
         }
 
         // reject.
-        if (packages.length <= 0) {
+        if (_packages.length <= 0) {
             reject(`no field were passed`);
         }
 
         // resolve.
-        resolve(packages)
+        resolve(_packages)
     })
 }
 
 /**
- * Generate string for import packages.
+ * Generate string for import _packages.
  * 
  * @since 1.0.0
  * @param {Array} fields 
  */
 module.exports = async (fields) => {
-    // Get the packages.
-    await getPackages(fields)
+    await get_packages(fields)
         .then(packageList => {
-            // list of packages to import.
-            let tempPkg = fs.createWriteStream(path.resolve(__dirname, '../tempPKG.js'));
-
+            let tempPkg = _fs.createWriteStream(_path.resolve(__dirname, '../tempPKG.js'));
+            
             for (component in packageList) {
-                tempPkg.write(`const { ${packageList[component].join(',')} } = ${component}; \n`)
+                tempPkg.write(
+                    `const { ${packageList[component].join(',')} } = ${component}; \n`
+                )
             }
-
-            // Close file.
             tempPkg.close();
         }).catch(err => {
             chalk.red(

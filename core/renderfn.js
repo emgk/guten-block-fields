@@ -22,7 +22,6 @@ const _spinner = _ora({});
  * @param {boolean} iscompleted 
  */
 const field_spinner = (field, iscompleted) => {
-
     // Set start.
     _spinner.start(
         console.log(
@@ -65,7 +64,8 @@ module.exports._replacetag = (_field) => {
         _path.resolve(__dirname, template.toString())
     ).toString();
 
-    // Success.
+    
+    
     field_spinner(_field, true);
 
     _tmpblockfields.close();
