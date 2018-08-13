@@ -11,6 +11,8 @@ const getPackages = (blockFields) => {
 
         // Go through each of the field.
         for (field in blockFields) {
+
+            // type checking.
             switch (blockFields[field].type) {
                 case 'text':
                     packages['wp.editor'].push('PlainText');
@@ -19,14 +21,22 @@ const getPackages = (blockFields) => {
             }
         }
 
+        // reject.
         if (packages.length <= 0) {
             reject(`no field were passed`);
         }
 
+        // resolve.
         resolve(packages)
     })
 }
 
+/**
+ * Generate string for import packages.
+ * 
+ * @since 1.0.0
+ * @param {Array} fields 
+ */
 module.exports = async (fields) => {
     // Get the packages.
     await getPackages(fields)
