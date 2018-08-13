@@ -56,6 +56,7 @@ module.exports._getrs = () => {
         '#field-slug#': 'slug',
         '#field-title#': 'title',
         '#field-name#': 'name',
+        '#field-value#': 'value',
         '#field-attributeName#': 'attributeName'
     };
 }

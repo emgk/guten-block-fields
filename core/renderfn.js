@@ -13,6 +13,9 @@ const _renderpkg = require('./renderPackages');
 // Set _spinner.
 const _spinner = _ora({});
 
+// get the configuration.
+const _blockFieldJSON = require('../block-fields.json');
+
 /**
  * Show status of the field generator.
  * 
@@ -48,66 +51,50 @@ const field_spinner = (field, iscompleted) => {
  * Replace the template tags.
  * 
  * @since 1.0.0
- * 
- * @param {object} _field 
  */
-module.exports._replacetag = (_field) => {
-    // get the configuration.
-    const _blockFieldJSON = require('../block-fields.json');
+module.exports._replacetag = () => {
+    // when no field were passed.
+    if (_blockFieldJSON.fields.length <= 0) {
+        console.log(
+            _chalk.red(`Oops! seems like no fields were mentioned. Please refer to our documentation.`)
+        );
+        // Terminate the job.
+        process.exit(1);
+    }
 
     // store field temporily.
     let _tmpblockfields = _filesystem.createWriteStream(
-        _path.resolve(__dirname, '../tempFields.js')
+        _path.resolve(__dirname, '../tempFields.js'),
+        {'flags':'a'}
     );
 
-    // get the template.
-    let template = _helper._gettp(_field.type);
+    for (field in _blockFieldJSON.fields) {
 
-    // Get the file content.
-    let _template = _filesystem.readFileSync(
-        _path.resolve(__dirname, template.toString())
-    ).toString();
+        console.log( _blockFieldJSON.fields[field]);
+        let template = _helper._gettp(_blockFieldJSON.fields[field].type);
 
-    for (_replacetag in _helper._getrs()) {
-        let _rt = new RegExp(_replacetag, "g")
-        _template = _template.replace(_rt, _field[_helper._getrs()[_replacetag]] || '')
+        // Get the file content.
+        let _template = _filesystem.readFileSync(
+            _path.resolve(__dirname, template.toString())
+        ).toString();
+
+        for (_replacetag in _helper._getrs()) {
+            let _rt = new RegExp(_replacetag, "g")
+            _template = _template.replace(_rt, _blockFieldJSON.fields[field][_helper._getrs()[_replacetag]] || '')
+        }
+
+        // write content.
+        _tmpblockfields.write(_template);
+        _tmpblockfields.write('fsdfdsfsdfsdf');
+
+
+        // field created.
+        field_spinner(_blockFieldJSON.fields[field], true);
     }
 
-    // write content.
-    _tmpblockfields.write(_template);
-
-    field_spinner(_field, true);
-
+    _tmpblockfields.end();
     _tmpblockfields.close();
 }
-
-/**
- * Render the TextPlain field.
- * 
- * @since 1.0.0
- * 
- * @param {object} field 
- * @param {fs} file 
- */
-module.exports._renderTextField = (field, file) => {
-    // Get the template.
-    let template = _path.resolve(__dirname, '../gic-scripts/fields/PlainText.tpl');
-
-    // Get the file content.
-    let textFieldCode = _filesystem.readFileSync(template).toString();
-
-    // Replace the content.
-    textFieldCode = textFieldCode.replace(`<%field-title%>`, `"${field.title}"`);
-    textFieldCode = textFieldCode.replace(/<%field-slug%>/g, `${field.slug}`);
-    textFieldCode = textFieldCode.replace(`<%field-attributeName%>`, `${_helper.makeComponentName(field.attributeName)}`);
-    textFieldCode = textFieldCode.replace(`<%field-value%>`, `${_helper.makeComponentName(field.value)}`);
-
-    // Success.
-    field_spinner(field, true);
-
-    // Write the content.
-    file.write(textFieldCode);
-};
 
 /**
  * Render the React Component.
@@ -115,11 +102,10 @@ module.exports._renderTextField = (field, file) => {
  * @since 1.0.0
  * 
  * @param {String} packages 
- * @param {object} blockfields
  */
-module.exports.renderReactComponent = (blockfields) => {
+module.exports.renderReactComponent = () => {
     // if no field found!
-    if (!blockfields.fields.length) {
+    if (!_blockFieldJSON.fields.length) {
         // make fail.
         _spinner.fail(
             _chalk.red(`no fields to process`)
@@ -130,10 +116,10 @@ module.exports.renderReactComponent = (blockfields) => {
     }
 
     // requires packages.
-    _renderpkg(blockfields.fields);
+    _renderpkg(_blockFieldJSON.fields);
 
     // output dir.
-    let outputDir = blockfields.output || './BlockControllers';
+    let outputDir = _blockFieldJSON.output || './BlockControllers';
 
     // check if exists.
     if (!_filesystem.existsSync(outputDir)) {
@@ -152,7 +138,7 @@ module.exports.renderReactComponent = (blockfields) => {
     // set react component name.
     _react_component = _react_component.replace(
         /#ComponentName#/g,
-        _helper.makeComponentName(blockfields.name)
+        _helper.makeComponentName(_blockFieldJSON.name)
     )
 
     // import fields.
