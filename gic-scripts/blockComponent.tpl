@@ -1,18 +1,26 @@
-'<%import-packages%>'
-
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
-
-class <%InspectorController%> extends Component {
+#import-packages#
+/**
+ * #ComponentName# 
+ * 
+ */
+class #ComponentName# extends Component {
+    /**
+    * Constructor method. 
+    */
     constructor(props) {
         super(this);
     }
-    
+
+    /**
+     * Render method.
+     */
     render() {
-        return(
+        return (
             <InspectorControls>
-                <%fields%>
+                #fields#
             </InspectorControls>
         )
-    }    
+    }
 }

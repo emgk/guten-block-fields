@@ -3,7 +3,8 @@ const ora = require('ora');
 const path = require('path');
 const shell = require('shelljs');
 const chalk = require('chalk');
-const validate = require('./validates');
+
+const helper = require('./tools');
 const renderPackages = require('./renderPackages');
 
 // Set spinner.
@@ -56,8 +57,8 @@ module.exports.renderTextField = (field, file) => {
     // Replace the content.
     textFieldCode = textFieldCode.replace(`<%field-title%>`, `"${field.title}"`);
     textFieldCode = textFieldCode.replace(/<%field-slug%>/g, `${field.slug}`);
-    textFieldCode = textFieldCode.replace(`<%field-attributeName%>`, `${validate.makeComponentName(field.attributeName)}`);
-    textFieldCode = textFieldCode.replace(`<%field-value%>`, `${validate.makeComponentName(field.value)}`);
+    textFieldCode = textFieldCode.replace(`<%field-attributeName%>`, `${helper.makeComponentName(field.attributeName)}`);
+    textFieldCode = textFieldCode.replace(`<%field-value%>`, `${helper.makeComponentName(field.value)}`);
 
     // Success.
     fieldSpinner(field, true);
@@ -94,10 +95,18 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
 
     let outputDir = blockfields.output || './BlockControllers';
 
-    if (!fs.existsSync(blockfields.output)) {
-        shell.mkdir('-p', blockfields.output);
+    if (!fs.existsSync(outputDir)) {
+        shell.mkdir('-p', outputDir);
     }
 
+    // Get react component template.
+    let ReactComponent = fs.readFileSync(helper.getComponentTemplate()).toString();
 
+    ReactComponent = ReactComponent.replace(`#import-packages#`, packageListCode);
+
+    fs.writeFileSync(
+        `${outputDir}/BlockControllers.js`,
+        ReactComponent
+    );
 
 };
