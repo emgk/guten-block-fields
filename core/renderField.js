@@ -3,6 +3,7 @@ const ora = require('ora');
 const path = require('path');
 const shell = require('shelljs');
 const chalk = require('chalk');
+const js_beautify = require('js-beautify').js_beautify;
 
 const helper = require('./tools');
 const renderPackages = require('./renderPackages');
@@ -122,6 +123,6 @@ module.exports.renderReactComponent = (componentName, blockfields) => {
 
     fs.writeFileSync(
         `${outputDir}/BlockControllers.js`,
-        ReactComponent
+        js_beautify(ReactComponent, { indent_size: 2 })
     )
 }
