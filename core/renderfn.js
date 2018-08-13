@@ -53,7 +53,7 @@ const field_spinner = (field, iscompleted) => {
  * @since 1.0.0
  * 
  * @param {object} field 
- * @param {_filesystem} file 
+ * @param {fs} file 
  */
 module.exports._renderTextField = (field, file) => {
     // Get the template.
