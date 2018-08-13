@@ -11,7 +11,7 @@ const _helper = require('./tools');
 const _renderpkg = require('./renderPackages');
 
 // Set _spinner.
-const _spinner = _ora({ text: 'Generating has been started!' });
+const _spinner = _ora({});
 
 /**
  * Show status of the field generator.
@@ -23,14 +23,12 @@ const _spinner = _ora({ text: 'Generating has been started!' });
  */
 const field_spinner = (field, iscompleted) => {
 
-    setTimeout(() => {
-        // Set start.
-        _spinner.start(
-            console.log(
-                _chalk.bgKeyword('purple').white(`${field.slug}`) + _chalk.white(` field is rendering..\n`)
-            )
+    // Set start.
+    _spinner.start(
+        console.log(
+            _chalk.bgKeyword('purple').white(`${field.slug}`) + _chalk.white(` field is rendering..\n`)
         )
-    }, 100)
+    )
 
     // If isn't completed.
     if (!iscompleted) {
@@ -45,6 +43,32 @@ const field_spinner = (field, iscompleted) => {
                 _chalk.white(' field generated successfully..\n'));
         }, 100);
     }
+}
+
+/**
+ * Replace the template tags.
+ * 
+ * @since 1.0.0
+ * 
+ * @param {object} _field 
+ */
+module.exports._replacetag = (_field) => {
+    let _tmpblockfields = _filesystem.createWriteStream(
+        _path.resolve(__dirname, '../tempFields.js')
+    );
+
+    // get the template.
+    let template = require('./fieldcode')(_field.type);
+
+    // Get the file content.
+    let textFieldCode = _filesystem.readFileSync(
+        _path.resolve(__dirname, template.toString())
+    ).toString();
+
+    // Success.
+    field_spinner(_field, true);
+
+    _tmpblockfields.close();
 }
 
 /**

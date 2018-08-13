@@ -19,22 +19,10 @@ module.exports.generateBlocks = () => {
         process.exit(1);
     }
 
-    // Create file where all the field code would be store as temporarily.
-    let _tmpblockfields = _fs.createWriteStream(_path.resolve(__dirname, '../tempFields.js'));
-
-    // Go through each of the field.
     for (field in _blockFieldJSON.fields) {
-        switch (_blockFieldJSON.fields[field].type) {
-            case 'text':
-                _render_field._renderTextField(_blockFieldJSON.fields[field], _tmpblockfields);
-                break;
-        }
+        _render_field._replacetag(_blockFieldJSON.fields[field]);
     }
 
-    // close the file.
-    _tmpblockfields.end();
-
-    // render the react component.
     setTimeout(() => {
         // Render the react block component.
         _render_field.renderReactComponent(
