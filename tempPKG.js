@@ -1,1 +1,0 @@
-const { PlainText } = wp.editor; 

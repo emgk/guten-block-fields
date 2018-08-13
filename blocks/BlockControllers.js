@@ -1,7 +1,6 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
-const { PlainText } = wp.editor; 
-
+#import-packages#
 /**
  * MyControllers Block controller
  * 
@@ -25,29 +24,7 @@ class MyControllers extends Component {
             <InspectorControls>
                 <div className="guten-inspect-controller-your-name-wrap">
         <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ #field-value# }
-        />
-</div>
-    <div className="guten-inspect-controller-your-name-wrap">
-        <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ #field-value# }
-        />
-</div>
-    <div className="guten-inspect-controller-your-name-wrap">
-        <PlainText
-            label={ __( Your Name ) }
+            label={ __( 'Your Name' ) }
             className="guten-field-your-name"
             onChange={ ( value ) => {
                  // this.props.setAttributes({name:value})
@@ -56,53 +33,9 @@ class MyControllers extends Component {
             value={ 123 }
         />
 </div>
-    <div className="guten-inspect-controller-your-name-wrap">
+    <div className="guten-inspect-controller-father-name-wrap">
         <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ 123 }
-        />
-</div>
-    <div className="guten-inspect-controller-your-name-wrap">
-        <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ 123 }
-        />
-</div>
-    <div className="guten-inspect-controller-your-name-wrap">
-        <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ 123 }
-        />
-</div>
-    <div className="guten-inspect-controller-your-name-wrap">
-        <PlainText
-            label={ __( Your Name ) }
-            className="guten-field-your-name"
-            onChange={ ( value ) => {
-                 // this.props.setAttributes({name:value})
-                 // this.setState({name:value})
-            }}
-            value={ 123 }
-        />
-</div>
-    fsdfdsfsdfsdf<div className="guten-inspect-controller-father-name-wrap">
-        <PlainText
-            label={ __( Your father name ) }
+            label={ __( 'Your father name' ) }
             className="guten-field-father-name"
             onChange={ ( value ) => {
                  // this.props.setAttributes({name:value})
@@ -111,9 +44,9 @@ class MyControllers extends Component {
             value={ 123 }
         />
 </div>
-    fsdfdsfsdfsdf<div className="guten-inspect-controller-city-name-wrap">
+    <div className="guten-inspect-controller-city-name-wrap">
         <PlainText
-            label={ __( City name ) }
+            label={ __( 'City name' ) }
             className="guten-field-city-name"
             onChange={ ( value ) => {
                  // this.props.setAttributes({name:value})
@@ -122,7 +55,7 @@ class MyControllers extends Component {
             value={ 123 }
         />
 </div>
-    fsdfdsfsdfsdffsdfdsfsdfsdf
+    
             </InspectorControls>
         )
     }

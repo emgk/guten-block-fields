@@ -1,6 +1,6 @@
 <div className="guten-inspect-controller-#field-slug#-wrap">
         <PlainText
-            label={ __( #field-title# ) }
+            label={ __( '#field-title#' ) }
             className="guten-field-#field-slug#"
             onChange={ ( value ) => {
                  // this.props.setAttributes({#field-attributeName#:value})

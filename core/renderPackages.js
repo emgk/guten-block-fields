@@ -40,11 +40,11 @@ const get_packages = (blockFields) => {
  * @since 1.0.0
  * @param {Array} fields 
  */
-module.exports = async (fields) => {
+module.exports._renderpkg = async (fields) => {
     await get_packages(fields)
         .then(packageList => {
             let tempPkg = _fs.createWriteStream(_path.resolve(__dirname, '../tempPKG.js'));
-            
+
             for (component in packageList) {
                 tempPkg.write(
                     `const { ${packageList[component].join(',')} } = ${component}; \n`

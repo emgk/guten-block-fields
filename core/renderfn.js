@@ -65,12 +65,12 @@ module.exports._replacetag = () => {
     // store field temporily.
     let _tmpblockfields = _filesystem.createWriteStream(
         _path.resolve(__dirname, '../tempFields.js'),
-        {'flags':'a'}
     );
 
-    for (field in _blockFieldJSON.fields) {
+    // requires packages.
+    // _renderpkg._renderpkg(_blockFieldJSON.fields);
 
-        console.log( _blockFieldJSON.fields[field]);
+    for (field in _blockFieldJSON.fields) {
         let template = _helper._gettp(_blockFieldJSON.fields[field].type);
 
         // Get the file content.
@@ -78,22 +78,24 @@ module.exports._replacetag = () => {
             _path.resolve(__dirname, template.toString())
         ).toString();
 
-        for (_replacetag in _helper._getrs()) {
-            let _rt = new RegExp(_replacetag, "g")
-            _template = _template.replace(_rt, _blockFieldJSON.fields[field][_helper._getrs()[_replacetag]] || '')
+        for (_replacetags in _helper._getrs()) {
+            let _rt = new RegExp(_replacetags, "g")
+            _template = _template.replace(_rt, _blockFieldJSON.fields[field][_helper._getrs()[_replacetags]] || '')
         }
 
         // write content.
         _tmpblockfields.write(_template);
-        _tmpblockfields.write('fsdfdsfsdfsdf');
-
 
         // field created.
         field_spinner(_blockFieldJSON.fields[field], true);
     }
 
     _tmpblockfields.end();
-    _tmpblockfields.close();
+    // _tmpblockfields.close();
+
+    // unlink temp files.
+    // _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
+    // _filesystem.unlinkSync(_path.resolve(__dirname, '../tempPKG.js'))
 }
 
 /**
@@ -115,9 +117,6 @@ module.exports.renderReactComponent = () => {
         process.exit(1)
     }
 
-    // requires packages.
-    _renderpkg(_blockFieldJSON.fields);
-
     // output dir.
     let outputDir = _blockFieldJSON.output || './BlockControllers';
 
@@ -130,10 +129,10 @@ module.exports.renderReactComponent = () => {
     let _react_component = _filesystem.readFileSync(_helper.getComponentTemplate()).toString();
 
     // import packages.
-    _react_component = _react_component.replace(
-        `#import-packages#`,
-        _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
-    )
+    // _react_component = _react_component.replace(
+        // `#import-packages#`,
+        // _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
+    // )
 
     // set react component name.
     _react_component = _react_component.replace(
