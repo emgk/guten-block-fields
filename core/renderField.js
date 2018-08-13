@@ -3,7 +3,7 @@ const ora = require('ora');
 const path = require('path');
 const chalk = require('chalk');
 const validate = require('./validates');
-const packagesfn = require('./packagefn');
+const renderPackages = require('./renderPackages');
 
 // Set spinner.
 const spinner = ora({ text: '' });
@@ -47,7 +47,7 @@ const fieldSpinner = (field, iscompleted) => {
  */
 module.exports.renderTextField = (field, file) => {
     // Get the template.
-    let template = path.resolve(__dirname, '../gic-scripts/fields/TextPlain.tpl');
+    let template = path.resolve(__dirname, '../gic-scripts/fields/PlainText.tpl');
 
     // Get the file content.
     let textFieldCode = fs.readFileSync(template).toString();
@@ -85,13 +85,6 @@ module.exports.renderReactComponent = (componentName, fields) => {
         process.exit(1)
     }
 
-
-    // Store packages code.
-    let packageToImport = fs.createWriteStream(path.resolve(__dirname, '../tempPKG.js'));
-
     // Require packages.
-    let pacakges = packagesfn.getPackages(fields);
-
-    console.log(pacakges);
-
+    renderPackages(fields);
 };

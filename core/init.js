@@ -36,7 +36,7 @@ module.exports.generateBlocks = () => {
     
 
     // Render the react block component.
-    renderField.renderReactComponent(blockComponentName);
+    renderField.renderReactComponent(blockComponentName, inspectorControllers.fields);
 
     // Terminate the file system.
     tempFieldsCode.end();
