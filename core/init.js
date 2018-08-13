@@ -1,7 +1,6 @@
 const _fs = require('fs');
 const _path = require('path');
 const _chalk = require('chalk');
-const _tools = require('./tools');
 
 // helper function to render the tools.
 const _render_field = require('./renderfn');
