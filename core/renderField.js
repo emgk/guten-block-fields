@@ -72,13 +72,11 @@ module.exports.renderTextField = (field, file) => {
  * 
  * @param {String} componentName 
  * @param {String} packages 
- * @param {String} fields 
+ * @param {object} blockfields
  */
-module.exports.renderReactComponent = (componentName, fields) => {
-    // Get the block component template.
-    let blockComponent = path.resolve(__dirname, '../gic-scripts/blockComponent');
+module.exports.renderReactComponent = (componentName, blockfields) => {
 
-    if (!fields.length) {
+    if (!blockfields.fields.length) {
         spinner.fail(
             chalk.red(`no fields to process`)
         )
@@ -86,5 +84,13 @@ module.exports.renderReactComponent = (componentName, fields) => {
     }
 
     // Require packages.
-    renderPackages(fields);
+    renderPackages(blockfields.fields);
+
+    // Get the block component template.
+    let
+        reactComponentClass = path.resolve(__dirname, '../gic-scripts/blockComponent'),
+        packageListCode = fs.readFileSync(path.resolve(__dirname, '../tempPKG.js')).toString();
+
+    console.log(blockfields.output);
+
 };
