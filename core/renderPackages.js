@@ -2,7 +2,7 @@ const _fs = require('fs-extra');
 const _path = require('path');
 
 // store packages.
-let _packages = { 'wp.editor': [] };
+let _packages = { 'wp.editor': [], 'wp.components': [] };
 
 // get packages.
 const get_packages = (blockFields) => {
@@ -14,7 +14,7 @@ const get_packages = (blockFields) => {
             // type checking.
             switch (blockFields[field].type) {
                 case 'text':
-                    _packages['wp.editor'].push('TextControl');
+                    _packages['wp.components'].push('TextControl');
                     break;
             }
 

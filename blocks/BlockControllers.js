@@ -55,3 +55,5 @@ class MyControllers extends Component {
         )
     }
 }
+
+export default MyControllers;
