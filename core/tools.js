@@ -40,7 +40,8 @@ module.exports._gettp = (type) => {
     const relatedTemp = {
         'text': '../gbf-scripts/fields/TextControl.tpl',
         'color': '../gbf-scripts/fields/ColorPalette.tpl',
-        'toggle': '../gbf-scripts/PanelBody.tpl'
+        'toggle': '../gbf-scripts/PanelBody.tpl',
+        'basecontrol': '../gbf-scripts/fields/BaseControl.tpl'
     }
 
     return relatedTemp[type] || '';

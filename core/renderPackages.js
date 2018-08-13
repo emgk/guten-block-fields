@@ -26,6 +26,11 @@ const get_packages = (blockFields) => {
                 _packages['wp.components'].push('PanelBody');
             }
 
+            // import BaseControl.
+            if (true === blockFields[field].baseControl) {
+                _packages['wp.components'].push('BaseControl')
+            }
+
             // processed.
             _already_procced.push(blockFields[field].type);
         }

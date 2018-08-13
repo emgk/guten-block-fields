@@ -1,7 +1,7 @@
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 const { __ } = wp.i18n;
-const { TextControl, PanelBody } = wp.components;
+const { TextControl, PanelBody, BaseControl } = wp.components;
 
 /**
  * MyControllers Block controller
@@ -25,16 +25,18 @@ class MyControllers extends Component {
         return (
             <InspectorControls>
                 <PanelBody initialOpen={false} title={[__('Your name please.')]}>
-                    <TextControl
-                        label={__('Your Name')}
-                        className="guten-field-your-name"
-                        onChange={(value) => {
-                            // this.props.setAttributes({name:value})
-                            // this.setState({name:value})
-                        }}
-                        value={123}
-                    />
+                    <BaseControl id="base-control-your-name" label={__('Enter your name')} help={__('your name will help us to identify you!')} >
+                        <TextControl
+                            label={__('Your Name')}
+                            className="guten-field-your-name"
+                            onChange={(value) => {
+                                // this.props.setAttributes({name:value})
+                                // this.setState({name:value})
+                            }}
+                            value={123}
+                        />
 
+                    </BaseControl>
                 </PanelBody>
                 <TextControl
                     label={__('Your father name')}

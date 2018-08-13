@@ -9,9 +9,14 @@
             "value": 123,
             "attributeName": "name",
             "toggle": true,
+            "baseControl": true,
             "toggleOption": {
                 "title": "Your name please.",
                 "isOpen": false
+            },
+            "baseControlOption": {
+                "label": "Enter your name",
+                "help": "your name will help us to identify you!"
             }
         },
         {

@@ -81,6 +81,25 @@ module.exports._replacetag = () => {
             _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
         }
 
+        // base control.
+        if (_current_field.baseControl) {
+            if (!_current_field.baseControlOption) {
+                _helper._terminate_with_msg(` "baseControlOption" were not passed for field "${_current_field.title}"`, true);
+            }
+
+            let _basecontrolTemplate = _filesystem.readFileSync(
+                _path.resolve(__dirname, _helper._gettp('basecontrol'))
+            ).toString()
+
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${_current_field.baseControlOption.label || ''}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${_current_field.baseControlOption.help || ''}`)
+            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
+
+            _template = _basecontrolTemplate;
+        }
+
+        // toggle option.
         if (_current_field.toggle) {
             if (!_current_field.toggleOption) {
                 _helper._terminate_with_msg(` "toggleOption" were not passed for field "${_current_field.title}"`, true);
