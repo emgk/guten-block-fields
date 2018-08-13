@@ -1,15 +1,12 @@
 {
-  "name": "guten-inspector-controls",
+  "name": "guten-block-fields",
   "version": "1.0.0",
-  "description": "",
+  "description": "Gutenbern npm package through which we can generate block's Inspector Controllers.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "author": "Govind Kumar",
   "license": "ISC",
   "bin": {
-    "gic": "./index.js"
+    "gbf": "./index.js"
   },
   "dependencies": {
     "chalk": "^2.4.1",
