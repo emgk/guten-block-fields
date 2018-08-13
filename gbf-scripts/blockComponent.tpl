@@ -27,3 +27,5 @@ class #ComponentName# extends Component {
         )
     }
 }
+
+export default #ComponentName#;
