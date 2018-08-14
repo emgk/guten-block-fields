@@ -4,7 +4,8 @@
     "toggles": {
         "bio": {
             "title": "Bio data",
-            "isOpen": true
+            "isOpen": true,
+            "icon": ""
         }
     },
     "fields": [

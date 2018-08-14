@@ -130,7 +130,18 @@ module.exports._getFileContent = (file) => {
     }
 }
 
+/**
+ * Get the toggles.
+ * 
+ * @since 1.0.0
+ */
 module.exports._get_toggles = () => {
-    // get the configuration.
-    const _block_fields = require('../block-fields.json');
+    // Get the field json.
+    const _toggle = this._get_fields_json()
+
+    if ("undefined" === _toggle || _toggle.length <= 0) {
+        return false;
+    }
+
+    return _toggle;
 }
