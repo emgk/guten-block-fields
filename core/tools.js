@@ -28,6 +28,26 @@ module.exports.getComponentTemplate = () => {
 }
 
 /**
+ * Get the block field JSON.
+ * 
+ * @since 1.0.0
+ */
+module.exports._get_fields_json = () => {
+    const _fs = require('fs');
+
+    if (_fs.existsSync(require('path').resolve(__dirname, '../block-fields.json'))) {
+        try {
+            const _fields = require('../block-fields.json');
+            return _fields;
+        } catch (err) {
+            this._terminate_with_msg(err);
+        }
+    } else {
+        this._terminate_with_msg(`block-fields.json is isn't exists, please refer to documentations!`)
+    }
+}
+
+/**
  * Return template file to render the field.
  * 
  * @since 1.0.0
@@ -108,4 +128,9 @@ module.exports._getFileContent = (file) => {
     } catch (e) {
         this._terminate_with_msg(e, true);
     }
+}
+
+module.exports._get_toggles = () => {
+    // get the configuration.
+    const _block_fields = require('../block-fields.json');
 }

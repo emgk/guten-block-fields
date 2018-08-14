@@ -1,18 +1,26 @@
 {
     "name": "My Controllers",
     "output": "./blocks",
+    "toggles": {
+        "bio": {
+            "title": "Bio data",
+            "isOpen": true
+        }
+    },
     "fields": [
         {
             "title": "Your Name",
             "slug": "your-name",
             "type": "text",
             "value": 123,
+            "toggle": "bio",
             "attributeName": "name",
             "baseControl": true
         },
         {
             "title": "Accept t&c",
             "label": "Sample",
+            "toggle": "bio",
             "help": "This is help section",
             "checked": true,
             "type": "checkbox"

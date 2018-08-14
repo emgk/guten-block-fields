@@ -14,7 +14,7 @@ const _renderpkg = require('./renderPackages');
 const _spinner = _ora({});
 
 // get the configuration.
-const _blockFieldJSON = require('../block-fields.json');
+const _blockFieldJSON = _helper._get_fields_json()
 
 /**
  * Show status of the field generator.
