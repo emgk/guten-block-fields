@@ -49,6 +49,116 @@ const field_spinner = (field, iscompleted) => {
 }
 
 /**
+ * Render the field.
+ * 
+ * @since 1.0.0
+ * 
+ * @param {Object} field 
+ */
+module.exports._renderfield = (field) => {
+    // current field.
+    let _current_field = _blockFieldJSON.fields[field],
+        template = _helper._gettp(_current_field.type);
+
+    // Get the file content.
+    let _template = _helper._getFileContent(template.toString());
+
+    if (!_template) {
+        _helper._terminate_with_msg(`Template isn't found for field "${_current_field.title}"`, true);
+    }
+
+    // base control.
+    if ("undefined" === typeof _current_field.baseControl || true === _current_field.baseControl) {
+        _current_field.baseControl = true;
+
+        let _basecontrolTemplate = _filesystem.readFileSync(
+            _path.resolve(__dirname, _helper._gettp('basecontrol'))
+        ).toString()
+
+        const label = _current_field.baseControlOption ? _current_field.baseControlOption.label : '';
+        const help = _current_field.baseControlOption ? _current_field.baseControlOption.help : '';
+
+        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
+        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${label}`)
+        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${help}`)
+        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
+
+        _template = _basecontrolTemplate;
+    }
+
+    // text field in most cases.
+    for (_replacetags in _helper._getrs()) {
+        let _rt = new RegExp(_replacetags, "g")
+        _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
+    }
+
+    // for button.
+    if ('button' === _current_field.type) {
+        let _baseButtonTemp = _helper._getFileContent(_helper._gettp('button'))
+
+        let _buttonTag = '';
+
+        _baseButtonTemp = _baseButtonTemp.replace(`#button-isDefault#`, _current_field.default);
+        _baseButtonTemp = _baseButtonTemp.replace(`#button-label#`, _current_field.title);
+        _baseButtonTemp = _baseButtonTemp.replace(`#button-class#`, _current_field.class);
+
+        _template = _baseButtonTemp;
+    }
+
+    // for checkbox.
+    if ('checkbox' === _current_field.type) {
+        _template = _template.replace(`#checkbox-title#`, _current_field.title);
+        _template = _template.replace(`#checkbox-label#`, _current_field.label);
+        _template = _template.replace(`#checkbox-help#`, _current_field.help);
+        _template = _template.replace(`#checkbox-isCheck#`, _current_field.checked);
+    }
+
+    // for radio.
+    if ('radio' === _current_field.type) {
+        _template = _template.replace(`#radio-title#`, _current_field.title)
+        _template = _template.replace(`#radio-help#`, _current_field.help)
+        _template = _template.replace(`#radio-option#`, _current_field.option)
+        _template = _template.replace(`#radio-options#`, JSON.stringify(_current_field.options))
+    }
+
+    // for select.
+    if ("select" === _current_field.type) {
+        _template = _template.replace(`#select-title#`, _current_field.title)
+        _template = _template.replace(`#select-value#`, _current_field.value)
+        _template = _template.replace(`#select-options#`, JSON.stringify(_current_field.options))
+    }
+
+    // for range slider.
+    if ("range" === _current_field.type) {
+        _template = _template.replace(`#range-title#`, _current_field.title)
+        _template = _template.replace(`#range-value#`, _current_field.value)
+        _template = _template.replace(`#range-min#`, _current_field.min)
+        _template = _template.replace(`#range-max#`, _current_field.max)
+    }
+
+    // For button group.
+    if ('button-group' === _current_field.type) {
+        if (_current_field.buttons.length <= 0) {
+            _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
+        }
+
+        // get the template of button group.
+        let _baseButtonGroupTemp = _helper._getFileContent(_helper._gettp('button-group'));
+
+        let buttonsHtml = '';
+
+        for (button in _current_field.buttons) {
+            buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
+        }
+
+        _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
+        _template = _baseButtonGroupTemp;
+    }
+
+    return _template;
+}
+
+/**
  * Replace the template tags.
  * 
  * @since 1.0.0
@@ -72,137 +182,62 @@ module.exports._replacetag = () => {
         _path.resolve(__dirname, '../tempFields.js'),
     );
 
-    for (field in _blockFieldJSON.fields) {
-        let _current_field = _blockFieldJSON.fields[field],
-            template = _helper._gettp(_current_field.type);
+    let _toogle_field = '';
 
-        // Get the file content.
-        let _template = _helper._getFileContent(template.toString());
+    // Toggle field.
+    // for (field in _blockFieldJSON.fields) {
+    //     const _current_field = _blockFieldJSON.fields[field];
 
-        if (!_template) {
-            _helper._terminate_with_msg(`Template isn't found for field "${_current_field.title}"`, true);
-        }
+    //     if ("undefined" !== typeof _current_field.toggle && false !== _current_field.toggle) {
+    //         // if toggle no exists.
+    //         if (false === _toggles) {
+    //             _helper._terminate_with_msg(`No toggle found, please refer to our documentation.`);
+    //         }
 
-        // base control.
-        if ("undefined" === typeof _current_field.baseControl || true === _current_field.baseControl) {
-            _current_field.baseControl = true;
+    //         // If toggle exists.
+    //         if (Object.keys(_toggles).includes(_current_field.toggle)) {
+    //             _toggle_fields[_current_field.toggle].push(this._renderfield(_current_field))
+    //         }
+    //     }
+    // }
 
-            let _basecontrolTemplate = _filesystem.readFileSync(
-                _path.resolve(__dirname, _helper._gettp('basecontrol'))
-            ).toString()
+    if ("undefined" !== typeof _toggles) {
+        for (_toggle in _toggles) {
+            let _toggle_code = '';
 
-            const label = _current_field.baseControlOption ? _current_field.baseControlOption.label : '';
-            const help = _current_field.baseControlOption ? _current_field.baseControlOption.help : '';
-
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${label}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${help}`)
-            _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
-
-            _template = _basecontrolTemplate;
-        }
-
-        // text field in most cases.
-        for (_replacetags in _helper._getrs()) {
-            let _rt = new RegExp(_replacetags, "g")
-            _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
-        }
-
-        // for button.
-        if ('button' === _current_field.type) {
-            let _baseButtonTemp = _helper._getFileContent(_helper._gettp('button'))
-
-            let _buttonTag = '';
-
-            _baseButtonTemp = _baseButtonTemp.replace(`#button-isDefault#`, _current_field.default);
-            _baseButtonTemp = _baseButtonTemp.replace(`#button-label#`, _current_field.title);
-            _baseButtonTemp = _baseButtonTemp.replace(`#button-class#`, _current_field.class);
-
-            _template = _baseButtonTemp;
-        }
-
-        // for checkbox.
-        if ('checkbox' === _current_field.type) {
-            _template = _template.replace(`#checkbox-title#`, _current_field.title);
-            _template = _template.replace(`#checkbox-label#`, _current_field.label);
-            _template = _template.replace(`#checkbox-help#`, _current_field.help);
-            _template = _template.replace(`#checkbox-isCheck#`, _current_field.checked);
-        }
-
-        // for radio.
-        if ('radio' === _current_field.type) {
-            _template = _template.replace(`#radio-title#`, _current_field.title)
-            _template = _template.replace(`#radio-help#`, _current_field.help)
-            _template = _template.replace(`#radio-option#`, _current_field.option)
-            _template = _template.replace(`#radio-options#`, JSON.stringify(_current_field.options))
-        }
-
-        // for select.
-        if ("select" === _current_field.type) {
-            _template = _template.replace(`#select-title#`, _current_field.title)
-            _template = _template.replace(`#select-value#`, _current_field.value)
-            _template = _template.replace(`#select-options#`, JSON.stringify(_current_field.options))
-        }
-
-        // for range slider.
-        if ("range" === _current_field.type) {
-            _template = _template.replace(`#range-title#`, _current_field.title)
-            _template = _template.replace(`#range-value#`, _current_field.value)
-            _template = _template.replace(`#range-min#`, _current_field.min)
-            _template = _template.replace(`#range-max#`, _current_field.max)
-        }
-
-        // For button group.
-        if ('button-group' === _current_field.type) {
-            if (_current_field.buttons.length <= 0) {
-                _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
+            for (field in _blockFieldJSON.fields) {
+                const _curr_field = _blockFieldJSON.fields[field]
+                if (
+                    "undefined" !== _curr_field.toggle
+                    && false !== _curr_field.toggle
+                    && _toggle.toString() === _curr_field.toggle
+                ) {
+                    _toggle_code = `${_toggle_code}`.this._renderfield(_curr_field)
+                }
             }
-
-            // get the template of button group.
-            let _baseButtonGroupTemp = _helper._getFileContent(_helper._gettp('button-group'));
-
-            let buttonsHtml = '';
-
-            for (button in _current_field.buttons) {
-                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
-            }
-
-            _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
-            _template = _baseButtonGroupTemp;
+            _toggle_fields[_toggle] = _toggle_code
         }
+    }
 
-        // toggle option.
-        if (
-            "undefined" !== typeof _current_field.toggle
-            && false !== _current_field.toggle
-        ) {
-            // if toggle no exists.
-            if (false === _toggles) {
-                _helper._terminate_with_msg(`No toggle found, please refer to our documentation.`);
-            }
-
-            console.log( Object.keys(_toggles));
-
-            if (!_current_field.toggleOption) {
-                _helper._terminate_with_msg(` "toggleOption" were not passed for field "${_current_field.title}"`, true);
-            }
+    if (_toggle_fields.length > 0) {
+        for (_toggle_field in _toggle_fields) {
 
             // get the PanelBody.
-            let _panelTemplate = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString();
+            let _toggleField = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString();
 
-            _panelTemplate = _panelTemplate.replace('#toggle-isOpen#', _current_field.toggleOption.isOpen.toString() || false);
-            _panelTemplate = _panelTemplate.replace('#toggle-title#', _current_field.toggleOption.title || _current_field.title);
-            _panelTemplate = _panelTemplate.replace('#toogle-body#', `${_template}`);
+            _toggleField = _toggleField.replace('#toggle-isOpen#', _toggles[_toggle_field].isOpen.toString() || false);
+            _toggleField = _toggleField.replace('#toggle-title#', _toggles[_toggle_field].title || '');
+            _toggleField = _toggleField.replace('#toogle-body#', `${_toggle_fields[_toggle_field]}`);
 
-            _template = _panelTemplate;
+            _template = _toggleField;
         }
-
-        // write content.
-        _tmpblockfields.write(_template);
-
-        // field created.
-        field_spinner(_current_field, true);
     }
+
+    // write content.
+    _tmpblockfields.write(_template);
+
+    // field created.
+    field_spinner(_current_field, true);
 
     _tmpblockfields.end();
 
