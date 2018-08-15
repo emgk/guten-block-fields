@@ -137,11 +137,11 @@ module.exports._getFileContent = (file) => {
  */
 module.exports._get_toggles = () => {
     // Get the field json.
-    const _toggle = this._get_fields_json()
+    const _fields = this._get_fields_json()
 
-    if ("undefined" === _toggle || _toggle.length <= 0) {
+    if ("undefined" === _fields.toggles || _fields.toggles.length <= 0) {
         return false;
     }
 
-    return _toggle;
+    return _fields.toggles;
 }

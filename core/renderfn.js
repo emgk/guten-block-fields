@@ -63,6 +63,10 @@ module.exports._replacetag = () => {
         process.exit(1);
     }
 
+    // Get the toggles.
+    const _toggles = _helper._get_toggles();
+    const _toggle_fields = {};
+
     // store field temporily.
     let _tmpblockfields = _filesystem.createWriteStream(
         _path.resolve(__dirname, '../tempFields.js'),
@@ -168,7 +172,17 @@ module.exports._replacetag = () => {
         }
 
         // toggle option.
-        if (_current_field.toggle) {
+        if (
+            "undefined" !== typeof _current_field.toggle
+            && false !== _current_field.toggle
+        ) {
+            // if toggle no exists.
+            if (false === _toggles) {
+                _helper._terminate_with_msg(`No toggle found, please refer to our documentation.`);
+            }
+
+            console.log( Object.keys(_toggles));
+
             if (!_current_field.toggleOption) {
                 _helper._terminate_with_msg(` "toggleOption" were not passed for field "${_current_field.title}"`, true);
             }
