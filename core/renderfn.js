@@ -10,6 +10,9 @@ const _helper = require('./tools');
 // func to render the packages.
 const _renderpkg = require('./renderPackages');
 
+// replace multiple string.
+const _replaceString = require('./replacestring');
+
 // Set _spinner.
 const _spinner = _ora({});
 
@@ -72,18 +75,15 @@ module.exports._renderfield = (_current_field) => {
             _path.resolve(__dirname, _helper._gettp('basecontrol'))
         ).toString()
 
-        const label = _current_field.baseControlOption ? _current_field.baseControlOption.label : '';
-        const help = _current_field.baseControlOption ? _current_field.baseControlOption.help : '';
-
-        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-id#', `base-control-${_current_field.slug}`)
-        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-label#', `${label}`)
-        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-help#', `${help}`)
-        _basecontrolTemplate = _basecontrolTemplate.replace('#field-base-html#', `${_template}`)
-
-        _template = _basecontrolTemplate;
+        _template = _replaceString(_basecontrolTemplate, {
+            '#field-base-id#': _current_field.slug,
+            '#field-base-label#': _current_field.baseControlOption ? _current_field.baseControlOption.help : '',
+            '#field-base-help#': _current_field.baseControlOption ? _current_field.baseControlOption.label : '',
+            '#field-base-html#': _template
+        });
     }
 
-    // text field in most cases.
+    // replace common field for all fields.
     for (_replacetags in _helper._getrs()) {
         let _rt = new RegExp(_replacetags, "g")
         _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
@@ -93,44 +93,39 @@ module.exports._renderfield = (_current_field) => {
     if ('button' === _current_field.type) {
         let _baseButtonTemp = _helper._getFileContent(_helper._gettp('button'))
 
-        let _buttonTag = '';
-
-        _baseButtonTemp = _baseButtonTemp.replace(`#button-isDefault#`, _current_field.default);
-        _baseButtonTemp = _baseButtonTemp.replace(`#button-label#`, _current_field.title);
-        _baseButtonTemp = _baseButtonTemp.replace(`#button-class#`, _current_field.class);
-
-        _template = _baseButtonTemp;
+        _template = _replaceString(_baseButtonTemp, {
+            '#field-isDefault#': _current_field.default,
+        })
     }
 
     // for checkbox.
     if ('checkbox' === _current_field.type) {
-        _template = _template.replace(`#checkbox-title#`, _current_field.title);
-        _template = _template.replace(`#checkbox-label#`, _current_field.label);
-        _template = _template.replace(`#checkbox-help#`, _current_field.help);
-        _template = _template.replace(`#checkbox-isCheck#`, _current_field.checked);
+        _template = _replaceString(_template, {
+            '#field-isCheck#': _current_field.checked,
+        })
     }
 
     // for radio.
     if ('radio' === _current_field.type) {
-        _template = _template.replace(`#radio-title#`, _current_field.title)
-        _template = _template.replace(`#radio-help#`, _current_field.help)
-        _template = _template.replace(`#radio-option#`, _current_field.option)
-        _template = _template.replace(`#radio-options#`, JSON.stringify(_current_field.options))
+        _template = _replaceString(_template, {
+            '#field-option#': _current_field.option,
+            '#field-options#': JSON.stringify(_current_field.options),
+        })
     }
 
     // for select.
     if ("select" === _current_field.type) {
-        _template = _template.replace(`#select-title#`, _current_field.title)
-        _template = _template.replace(`#select-value#`, _current_field.value)
-        _template = _template.replace(`#select-options#`, JSON.stringify(_current_field.options))
+        _template = _replaceString(_template, {
+            '#field-options#': JSON.stringify(_current_field.options),
+        })
     }
 
     // for range slider.
     if ("range" === _current_field.type) {
-        _template = _template.replace(`#range-title#`, _current_field.title)
-        _template = _template.replace(`#range-value#`, _current_field.value)
-        _template = _template.replace(`#range-min#`, _current_field.min)
-        _template = _template.replace(`#range-max#`, _current_field.max)
+        _template = _replaceString(_template, {
+            '#range-min#': _current_field.min,
+            '#range-max#': _current_field.max,
+        })
     }
 
     // For button group.

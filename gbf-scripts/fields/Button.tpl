@@ -1,3 +1,3 @@
-<Button className="#button-class#" #button-isDefault#>
-	#button-label#
+<Button className="#field-class#" #field-isDefault#>
+	#field-title#
 </Button>

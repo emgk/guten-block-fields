@@ -1,8 +1,8 @@
 <CheckboxControl
-		heading="#checkbox-title#"
-		label="#checkbox-label#"
-		help="#checkbox-help#"
-		checked={ #checkbox-isCheck# }
+		heading="#field-title#"
+		label="#field-label#"
+		help="#field-help#"
+		checked={ #field-isCheck# }
 		onChange={ ( isChecked ) => {
 			 // setState( { isChecked } ) 
 		} }

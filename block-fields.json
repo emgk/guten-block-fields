@@ -27,10 +27,10 @@
             "type": "checkbox"
         },
         {
+            "title": "Save Changes",
             "type": "button",
             "default": false,
-            "class": "save",
-            "title": "Save Changes"
+            "class": "save"
         },
         {
             "title": "Button Group",

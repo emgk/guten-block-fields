@@ -1,8 +1,8 @@
 <RadioControl
-		label="#radio-title#"
-		help="#radio-help#"
-		selected={ #radio-option# }
-		options={ #radio-options# }
+		label="#field-label#"
+		help="#field-help#"
+		selected={ #field-option# }
+		options={ #field-options# }
 		onChange={ ( option ) => { 
             setState( { option } ) 
             } 

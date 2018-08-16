@@ -6,7 +6,7 @@
  * @param {string} base 
  * @param {Object} arr 
  */
-module.exports._replaceString = (base, arr = {}) => {
+module.exports = (base, arr = {}) => {
     base = base || '';
 
     if (Object.keys(arr).length > 0) {
