@@ -292,27 +292,33 @@ module.exports.renderReactComponent = () => {
         _prettier.format(_react_component, { semi: false, parser: "babylon", useTabs: true, bracketSpacing: true, jsxBracketSameLine: true, arrowParens: 'always' })
     )
 
-    let _php = _filesystem.readFileSync(
+    // write php.
+    _filesystem.readFile(
         _path.resolve(__dirname, '../gbf-scripts/block-editor.tpl'),
+        (err, content) => {
+            _filesystem.writeFile(
+                `${outputDir}/block-editor.php`,
+                _replaceString(content.toString(), {
+                    '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
+                    '#editorStylePath#': `${outputDir}/block-fields.css`
+                }), (res) => {
+                    // success.
+                })
+        }
     )
 
-    _filesystem.writeFileSync(
-        `${outputDir}/block-editor.php`,
-        _replaceString(_php, {
-            '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
-            '#editorStylePath#': `${outputDir}/block-fields.css`
-        })
-    )
-
-    let _css = _filesystem.readFileSync(
-        _path.resolve(__dirname, '../gbf-scripts/fields-style.tpl')
-    )
-
-    _filesystem.writeFileSync(
-        `${outputDir}/block-editor.php`,
-        _replaceString(_php, {
-            '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
-        })
+    // write css
+    _filesystem.readFile(
+        _path.resolve(__dirname, '../gbf-scripts/fields-style.tpl'),
+        (err, content) => {
+            _filesystem.writeFile(
+                `${outputDir}/css/editor-style.css`,
+                _replaceString(content.toString(), {
+                    '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
+                }), (res) => {
+                    // success.
+                })
+        }
     )
 
     console.log(
