@@ -307,6 +307,11 @@ module.exports.renderReactComponent = () => {
         }
     )
 
+    // check if exists.
+    if (!_filesystem.existsSync( `${outputDir}/css` )) {
+        _shell.mkdir('-p', `${outputDir}/css`);
+    }
+
     // write css
     _filesystem.readFile(
         _path.resolve(__dirname, '../gbf-scripts/fields-style.tpl'),
@@ -323,14 +328,21 @@ module.exports.renderReactComponent = () => {
 
     console.log(
         _chalk
-            .blue(`Inspect Controller has been generated, add this below code at the top of your block file.`) +
+            .green(`Inspect Controller has been generated`) +
+        _chalk
+            .blue(`\n\nStep 1: Add this below code at the top of your block file.`) +
         _chalk
             .bgKeyword('black')
             .yellow(`\n\nimport { ${_helper.makeComponentName(_blockFieldJSON.name)}} from '${outputDir}/BlockControllers';`) +
         _chalk
-            .blue(`\n\n and add this Tag to your block's edit method \n\n`) +
+            .blue(`\n\n Step 2: add this Tag to your block's edit method \n\n`) +
         _chalk
             .bgKeyword('black')
-            .yellow(`<${_helper.makeComponentName(_blockFieldJSON.name)}/>`)
+            .yellow(`<${_helper.makeComponentName(_blockFieldJSON.name)}/>`) +
+        _chalk
+            .blue(`\n\nStep 3: Add this code to your plugin's main php file.\n`) +
+        _chalk
+            .bgKeyword('black')
+            .yellow(`\n <?php include( plugin_dir_url( __FILE__ ) . ${outputDir}/block-editor.php'); ?>\n`)
     )
 }
