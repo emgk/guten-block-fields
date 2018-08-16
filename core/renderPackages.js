@@ -73,7 +73,7 @@ module.exports._get_package_strings = (fields) => {
         }
 
         // append packages.
-        pkgs = `${pkgs}const { ${_packages[component].filter((el, i, a) => i === a.indexOf(el)).join(',')} } = ${component}; \n`;
+        pkgs = `${pkgs}const { ${_packages[component].filter((el, i, a) => i === a.indexOf(el)).join(', ')} } = ${component}; \n`;
     }
 
     return pkgs;

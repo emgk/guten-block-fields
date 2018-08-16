@@ -19,6 +19,9 @@ const _spinner = _ora({});
 // get the configuration.
 const _blockFieldJSON = _helper._get_fields_json()
 
+// store inspector controllers.
+let _inspectorControllers = '';
+
 /**
  * Show status of the field generator.
  * 
@@ -169,11 +172,6 @@ module.exports._replacetag = () => {
     const _toggles = _helper._get_toggles();
     const _toggle_fields = {};
 
-    // store field temporily.
-    let _tmpblockfields = _filesystem.createWriteStream(
-        _path.resolve(__dirname, '../tempFields.js'),
-    );
-
     if ("undefined" !== typeof _toggles) {
         for (_toggle in _toggles) {
             let _toggle_code = '';
@@ -219,12 +217,7 @@ module.exports._replacetag = () => {
     }
 
     // write content.
-    _tmpblockfields.write(_template);
-
-    _tmpblockfields.end();
-
-    // requires packages.
-    _renderpkg._renderpkg(_blockFieldJSON.fields);
+    _inspectorControllers = `${_inspectorControllers} ${_template}`;
 }
 
 /**
@@ -272,7 +265,7 @@ module.exports.renderReactComponent = () => {
     // import fields.
     _react_component = _react_component.replace(
         `#fields#`,
-        _filesystem.readFileSync(_path.resolve(__dirname, '../tempFields.js')).toString()
+        _inspectorControllers
     )
 
     // Todo: format the file.
@@ -280,9 +273,6 @@ module.exports.renderReactComponent = () => {
         `${outputDir}/BlockControllers.js`,
         _react_component
     )
-
-    // unlink temp files.
-    _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
 
     console.log(
         _chalk
