@@ -23,7 +23,7 @@
   },
   "license": "ISC",
   "bin": {
-    "gbf": "./index.js"
+    "guten-block-fields": "./index.js"
   },
   "dependencies": {
     "chalk": "^2.4.1",
