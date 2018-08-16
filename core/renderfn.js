@@ -288,7 +288,7 @@ module.exports.renderReactComponent = () => {
     // Todo: format the file.
     _filesystem.writeFileSync(
         `${outputDir}/BlockControllers.js`,
-        _prettier.format(_react_component, { semi: false, parser: "babylon", useTabs: true, bracketSpacing: true, jsxBracketSameLine: true })
+        _prettier.format(_react_component, { semi: false, parser: "babylon", useTabs: true, bracketSpacing: true, jsxBracketSameLine: true, arrowParens: 'always' })
     )
 
     console.log(
