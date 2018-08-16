@@ -315,7 +315,7 @@ module.exports.renderReactComponent = () => {
         (err, content) => {
             content = content.toString().replace(/#component#/g, _helper.makeComponentName(_blockFieldJSON.name).toLowerCase());
             _filesystem.writeFile(
-                `${outputDir}/css/editor-style.css`, content, (res) => {
+                `/css/editor-style.css`, content, (res) => {
                     // success.
                 })
         }
