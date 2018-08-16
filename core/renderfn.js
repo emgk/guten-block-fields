@@ -1,8 +1,15 @@
 const _filesystem = require('fs');
 const _ora = require('ora');
 const _path = require('path');
+
+// for shell script
 const _shell = require('shelljs');
+
+// terminal
 const _chalk = require('chalk');
+
+// format JS code.
+const _prettier = require("prettier");
 
 // helper func
 const _helper = require('./tools');
@@ -84,8 +91,8 @@ module.exports._renderfield = (_current_field) => {
             _path.resolve(__dirname, _helper._gettp('basecontrol'))
         ).toString()
 
-        const label = _current_field.label ? `__('${_current_field.label}')` : '';
-        const help = _current_field.help ? `__('${_current_field.help}')` : '';
+        const label = _current_field.label ? `label={__('${_current_field.label}')}` : '';
+        const help = _current_field.help ? `help={__('${_current_field.help}')}` : '';
 
         _template = _replaceString(_basecontrolTemplate, {
             '#field-base-id#': _current_field.slug || '',
@@ -116,7 +123,7 @@ module.exports._renderfield = (_current_field) => {
 
         case 'radio':
             _template = _replaceString(_template, {
-                '#field-option#': _current_field.option,
+                '#field-option#': `"${_current_field.option}"`,
                 '#field-options#': JSON.stringify(_current_field.options),
             })
             break;
@@ -142,7 +149,7 @@ module.exports._renderfield = (_current_field) => {
                 buttonsHtml = '';
 
             for (button in _current_field.buttons) {
-                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
+                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}">{__("${_current_field.buttons[button].label}")}</Button>`
             }
 
             _template = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
@@ -281,7 +288,7 @@ module.exports.renderReactComponent = () => {
     // Todo: format the file.
     _filesystem.writeFileSync(
         `${outputDir}/BlockControllers.js`,
-        _react_component
+        _prettier.format(_react_component, { semi: false, parser: "babylon", useTabs: true, bracketSpacing: true, jsxBracketSameLine: true })
     )
 
     console.log(

@@ -1,3 +1,3 @@
-<BaseControl id="#field-base-id#" label={#field-base-label#} help={#field-base-help#} >
+<BaseControl id="#field-base-id#" #field-base-label# #field-base-help# >
     #field-base-html#
 </BaseControl>
