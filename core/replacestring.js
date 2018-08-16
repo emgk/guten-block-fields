@@ -10,12 +10,17 @@ module.exports = (base, arr = {}) => {
     base = base || '';
 
     if (Object.keys(arr).length > 0) {
-        let _replaceString = '';
+
+        let _replaceString = base;
+
         for (tag in arr) {
-            _replaceString = _replaceString.replace(tag, arr[tag])
+            _replaceString = _replaceString.replace(tag, arr[tag] || '')
         }
-        base = _replaceString;
+
+        return _replaceString;
     }
+
+    console.log('\n\n');
 
     return base;
 }

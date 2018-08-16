@@ -83,6 +83,7 @@ module.exports._getrs = () => {
         '#field-slug#': 'slug',
         '#field-label#': 'label',
         '#field-title#': 'title',
+        '#field-class#': 'class',
         '#field-name#': 'name',
         '#field-value#': 'value',
         '#field-attributeName#': 'attributeName'

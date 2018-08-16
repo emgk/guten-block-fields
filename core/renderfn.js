@@ -75,10 +75,13 @@ module.exports._renderfield = (_current_field) => {
             _path.resolve(__dirname, _helper._gettp('basecontrol'))
         ).toString()
 
+        const label = _current_field.label ? `__('${_current_field.label}')` : '';
+        const help = _current_field.help ? `__('${_current_field.help}')` : '';
+
         _template = _replaceString(_basecontrolTemplate, {
-            '#field-base-id#': _current_field.slug,
-            '#field-base-label#': _current_field.baseControlOption ? _current_field.baseControlOption.help : '',
-            '#field-base-help#': _current_field.baseControlOption ? _current_field.baseControlOption.label : '',
+            '#field-base-id#': _current_field.slug || '',
+            '#field-base-label#': label,
+            '#field-base-help#': help,
             '#field-base-html#': _template
         });
     }
@@ -89,62 +92,54 @@ module.exports._renderfield = (_current_field) => {
         _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
     }
 
-    // for button.
-    if ('button' === _current_field.type) {
-        let _baseButtonTemp = _helper._getFileContent(_helper._gettp('button'))
+    switch (_current_field.type) {
+        case 'text':
+        case 'button':
+            _template = _replaceString(_template, {
+                '#field-isDefault#': _current_field.default,
+            })
+            break;
+        case 'checkbox':
+            _template = _replaceString(_template, {
+                '#field-isCheck#': _current_field.checked,
+            })
+            break;
 
-        _template = _replaceString(_baseButtonTemp, {
-            '#field-isDefault#': _current_field.default,
-        })
-    }
+        case 'radio':
+            _template = _replaceString(_template, {
+                '#field-option#': _current_field.option,
+                '#field-options#': JSON.stringify(_current_field.options),
+            })
+            break;
+        case 'select':
+            _template = _replaceString(_template, {
+                '#field-options#': JSON.stringify(_current_field.options),
+            })
+            break;
+        case 'range':
+            _template = _replaceString(_template, {
+                '#range-min#': _current_field.min,
+                '#range-max#': _current_field.max,
+            })
+            break;
+        case 'button-group':
+            if (_current_field.buttons.length <= 0) {
+                _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
+            }
 
-    // for checkbox.
-    if ('checkbox' === _current_field.type) {
-        _template = _replaceString(_template, {
-            '#field-isCheck#': _current_field.checked,
-        })
-    }
+            // get the template of button group.
+            let
+                _baseButtonGroupTemp = _helper._getFileContent(_helper._gettp('button-group')),
+                buttonsHtml = '';
 
-    // for radio.
-    if ('radio' === _current_field.type) {
-        _template = _replaceString(_template, {
-            '#field-option#': _current_field.option,
-            '#field-options#': JSON.stringify(_current_field.options),
-        })
-    }
+            for (button in _current_field.buttons) {
+                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
+            }
 
-    // for select.
-    if ("select" === _current_field.type) {
-        _template = _replaceString(_template, {
-            '#field-options#': JSON.stringify(_current_field.options),
-        })
-    }
-
-    // for range slider.
-    if ("range" === _current_field.type) {
-        _template = _replaceString(_template, {
-            '#range-min#': _current_field.min,
-            '#range-max#': _current_field.max,
-        })
-    }
-
-    // For button group.
-    if ('button-group' === _current_field.type) {
-        if (_current_field.buttons.length <= 0) {
-            _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
-        }
-
-        // get the template of button group.
-        let _baseButtonGroupTemp = _helper._getFileContent(_helper._gettp('button-group'));
-
-        let buttonsHtml = '';
-
-        for (button in _current_field.buttons) {
-            buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}"> ${_current_field.buttons[button].label} </Button>`
-        }
-
-        _baseButtonGroupTemp = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
-        _template = _baseButtonGroupTemp;
+            _template = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
+            break;
+        default:
+            _helper._terminate_with_msg(`"${_current_field.type}" is invalid field type.`, false)
     }
 
     // field created.
