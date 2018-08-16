@@ -55,13 +55,10 @@ const field_spinner = (field, iscompleted) => {
  * 
  * @param {Object} field 
  */
-module.exports._renderfield = (field) => {
-    // current field.
-    let _current_field = _blockFieldJSON.fields[field],
-        template = _helper._gettp(_current_field.type);
-
-    // Get the file content.
-    let _template = _helper._getFileContent(template.toString());
+module.exports._renderfield = (_current_field) => {
+    let
+        _template_path = _helper._gettp(_current_field.type),
+        _template = _helper._getFileContent(_template_path.toString());
 
     if (!_template) {
         _helper._terminate_with_msg(`Template isn't found for field "${_current_field.title}"`, true);
@@ -155,6 +152,9 @@ module.exports._renderfield = (field) => {
         _template = _baseButtonGroupTemp;
     }
 
+    // field created.
+    field_spinner(_current_field, true);
+
     return _template;
 }
 
@@ -173,6 +173,8 @@ module.exports._replacetag = () => {
         process.exit(1);
     }
 
+    let _template = '';
+
     // Get the toggles.
     const _toggles = _helper._get_toggles();
     const _toggle_fields = {};
@@ -181,25 +183,6 @@ module.exports._replacetag = () => {
     let _tmpblockfields = _filesystem.createWriteStream(
         _path.resolve(__dirname, '../tempFields.js'),
     );
-
-    let _toogle_field = '';
-
-    // Toggle field.
-    // for (field in _blockFieldJSON.fields) {
-    //     const _current_field = _blockFieldJSON.fields[field];
-
-    //     if ("undefined" !== typeof _current_field.toggle && false !== _current_field.toggle) {
-    //         // if toggle no exists.
-    //         if (false === _toggles) {
-    //             _helper._terminate_with_msg(`No toggle found, please refer to our documentation.`);
-    //         }
-
-    //         // If toggle exists.
-    //         if (Object.keys(_toggles).includes(_current_field.toggle)) {
-    //             _toggle_fields[_current_field.toggle].push(this._renderfield(_current_field))
-    //         }
-    //     }
-    // }
 
     if ("undefined" !== typeof _toggles) {
         for (_toggle in _toggles) {
@@ -212,32 +195,40 @@ module.exports._replacetag = () => {
                     && false !== _curr_field.toggle
                     && _toggle.toString() === _curr_field.toggle
                 ) {
-                    _toggle_code = `${_toggle_code}`.this._renderfield(_curr_field)
+                    _toggle_code = `${_toggle_code} \n ${this._renderfield(_curr_field)}`
                 }
             }
             _toggle_fields[_toggle] = _toggle_code
         }
     }
 
-    if (_toggle_fields.length > 0) {
+    if (Object.keys(_toggle_fields).length > 0) {
         for (_toggle_field in _toggle_fields) {
 
             // get the PanelBody.
-            let _toggleField = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString();
+            let _toggleField = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString()
 
-            _toggleField = _toggleField.replace('#toggle-isOpen#', _toggles[_toggle_field].isOpen.toString() || false);
-            _toggleField = _toggleField.replace('#toggle-title#', _toggles[_toggle_field].title || '');
-            _toggleField = _toggleField.replace('#toogle-body#', `${_toggle_fields[_toggle_field]}`);
+            _toggleField = _toggleField.replace('#toggle-isOpen#', _toggles[_toggle_field].isOpen.toString() || false)
+            _toggleField = _toggleField.replace('#toggle-title#', _toggles[_toggle_field].title || '')
+            _toggleField = _toggleField.replace('#toogle-body#', `${_toggle_fields[_toggle_field]}`)
 
-            _template = _toggleField;
+            _template = `${_template} \n ${_toggleField}`;
         }
+    }
+
+
+    for (field in _blockFieldJSON.fields) {
+        if (
+            Object.keys(_toggles).includes(_blockFieldJSON.fields[field].toggle)
+            && _blockFieldJSON.fields[field].toggle
+        ) {
+            continue;
+        }
+        _template = `${_template} \n ${this._renderfield(_blockFieldJSON.fields[field])}`
     }
 
     // write content.
     _tmpblockfields.write(_template);
-
-    // field created.
-    field_spinner(_current_field, true);
 
     _tmpblockfields.end();
 
