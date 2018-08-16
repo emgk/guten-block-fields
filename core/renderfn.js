@@ -48,8 +48,11 @@ const field_spinner = (field, iscompleted) => {
         // Completed.
         setTimeout(() => {
             _spinner.succeed(
-                _chalk.bgKeyword('white').black(` ${field.slug || field.title} `) +
-                _chalk.white('\n [100% completed..]\n'));
+                _chalk
+                    .bgKeyword('white')
+                    .black(` ${field.slug || field.title} `) +
+                _chalk
+                    .white('\n [100% completed..]\n'));
         }, 100);
     }
 }
@@ -71,7 +74,10 @@ module.exports._renderfield = (_current_field) => {
     }
 
     // base control.
-    if ("undefined" === typeof _current_field.baseControl || true === _current_field.baseControl) {
+    if (
+        "undefined" === typeof _current_field.baseControl ||
+        true === _current_field.baseControl
+    ) {
         _current_field.baseControl = true;
 
         let _basecontrolTemplate = _filesystem.readFileSync(
@@ -160,7 +166,8 @@ module.exports._replacetag = () => {
     // when no field were passed.
     if (_blockFieldJSON.fields.length <= 0) {
         console.log(
-            _chalk.red(`Oops! seems like no fields were mentioned. Please refer to our documentation.`)
+            _chalk
+                .red(`Oops! seems like no fields were mentioned. Please refer to our documentation.`)
         );
         // Terminate the job.
         process.exit(1);
@@ -169,8 +176,9 @@ module.exports._replacetag = () => {
     let _template = '';
 
     // Get the toggles.
-    const _toggles = _helper._get_toggles();
-    const _toggle_fields = {};
+    const
+        _toggles = _helper._get_toggles(),
+        _toggle_fields = {};
 
     if ("undefined" !== typeof _toggles) {
         for (_toggle in _toggles) {
@@ -231,9 +239,11 @@ module.exports.renderReactComponent = () => {
     // if no field found!
     if (!_blockFieldJSON.fields.length) {
         // make fail.
-        _spinner.fail(
-            _chalk.red(`no fields to process`)
-        )
+        _spinner
+            .fail(
+                _chalk
+                    .red(`no fields to process`)
+            )
 
         // exit.
         process.exit(1)
