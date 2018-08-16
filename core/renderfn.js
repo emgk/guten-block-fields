@@ -198,9 +198,11 @@ module.exports._replacetag = () => {
             // get the PanelBody.
             let _toggleField = _filesystem.readFileSync(_path.resolve(__dirname, _helper._gettp('toggle'))).toString()
 
-            _toggleField = _toggleField.replace('#toggle-isOpen#', _toggles[_toggle_field].isOpen.toString() || false)
-            _toggleField = _toggleField.replace('#toggle-title#', _toggles[_toggle_field].title || '')
-            _toggleField = _toggleField.replace('#toogle-body#', `${_toggle_fields[_toggle_field]}`)
+            _toggleField = _replaceString(_toggleField, {
+                '#toggle-isOpen#': _toggles[_toggle_field].isOpen.toString() || false,
+                '#toggle-title#': _toggles[_toggle_field].title || '',
+                '#toogle-body#': _toggle_fields[_toggle_field]
+            })
 
             _template = `${_template} \n ${_toggleField}`;
         }
