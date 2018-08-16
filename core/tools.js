@@ -24,7 +24,7 @@ module.exports.makeComponentName = (value) => {
  * @since 1.0.0
  */
 module.exports.getComponentTemplate = () => {
-    return require('path').resolve(__dirname, '../gbf-scripts/blockComponent.tpl');
+    return require('path').resolve(__dirname, '../gbf-scripts/blockComponent.js');
 }
 
 /**
@@ -59,7 +59,7 @@ module.exports._gettp = (type) => {
 
     const relatedTemp = {
         'text': '../gbf-scripts/fields/TextControl.js',
-        'toggle': '../gbf-scripts/PanelBody.js',
+        'toggle': '../gbf-scripts/fields/PanelBody.js',
         'basecontrol': '../gbf-scripts/fields/BaseControl.js',
         'button-group': '../gbf-scripts/fields/ButtonGroup.js',
         'button': '../gbf-scripts/fields/Button.js',
