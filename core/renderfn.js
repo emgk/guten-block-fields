@@ -208,7 +208,6 @@ module.exports._replacetag = () => {
         }
     }
 
-
     for (field in _blockFieldJSON.fields) {
         if (
             Object.keys(_toggles).includes(_blockFieldJSON.fields[field].toggle)
@@ -261,7 +260,7 @@ module.exports.renderReactComponent = () => {
     // import packages.
     _react_component = _react_component.replace(
         `#import-packages#`,
-        _filesystem.readFileSync(_path.resolve(__dirname, '../tempPKG.js')).toString()
+        _renderpkg._get_package_strings(_blockFieldJSON.fields)
     )
 
     // set react component name.
@@ -284,7 +283,6 @@ module.exports.renderReactComponent = () => {
 
     // unlink temp files.
     _filesystem.unlinkSync(_path.resolve(__dirname, '../tempFields.js'))
-    _filesystem.unlinkSync(_path.resolve(__dirname, '../tempPKG.js'))
 
     console.log(
         _chalk

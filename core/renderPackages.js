@@ -60,20 +60,21 @@ const get_packages = (blockFields) => {
  * @since 1.0.0
  * @param {Array} fields 
  */
-module.exports._renderpkg = (fields) => {
+module.exports._get_package_strings = (fields) => {
     // get packages.
     get_packages(fields);
 
-    // create file.
-    let tempPkg = _fs.createWriteStream(_path.resolve(__dirname, '../tempPKG.js'));
+    // store package list here.
+    let pkgs = '';
 
     for (component in _packages) {
         if (_packages[component].length === 0) {
             continue;
         }
-        tempPkg.write(
-            `const { ${_packages[component].filter((el, i, a) => i === a.indexOf(el)).join(',')} } = ${component}; \n`
-        )
+
+        // append packages.
+        pkgs = `${pkgs}const { ${_packages[component].filter((el, i, a) => i === a.indexOf(el)).join(',')} } = ${component}; \n`;
     }
-    tempPkg.end();
+
+    return pkgs;
 }
