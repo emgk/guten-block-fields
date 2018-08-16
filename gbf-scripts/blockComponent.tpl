@@ -35,4 +35,5 @@ class #ComponentName# extends Component {
     }
 }
 
+// Export #ComponentName#
 export default #ComponentName#;

@@ -39,7 +39,7 @@ const get_packages = (blockFields) => {
             }
 
             // import toggle lib
-            if (true === blockFields[field].toggle) {
+            if ('undefined' !== typeof blockFields[field].toggle && false !== blockFields[field].toggle) {
                 _packages['wp.components'].push('PanelBody');
             }
 

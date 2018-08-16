@@ -152,7 +152,7 @@ module.exports._renderfield = (_current_field) => {
                 buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}">{__("${_current_field.buttons[button].label}")}</Button>`
             }
 
-            _template = _baseButtonGroupTemp.replace(`#button-loop#`, buttonsHtml);
+            _template = _template.replace(`#button-loop#`, buttonsHtml);
             break;
         default:
             _helper._terminate_with_msg(`"${_current_field.type}" is invalid field type.`, false)

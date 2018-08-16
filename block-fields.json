@@ -6,6 +6,10 @@
             "title": "Bio data",
             "isOpen": true,
             "icon": ""
+        },
+        "occuption": {
+            "title":"Occuption",
+            "isOpen":false
         }
     },
     "fields": [
@@ -22,19 +26,20 @@
             "title": "Accept t&c",
             "label": "Sample",
             "toggle": "bio",
-            "help": "This is help section",
             "checked": true,
             "type": "checkbox"
         },
         {
             "title": "Save Changes",
             "type": "button",
+            "toggle": "occuption",
             "default": false,
             "class": "save"
         },
         {
             "title": "Button Group",
             "type": "button-group",
+            "toggle": "occuption",
             "buttons": [
                 {
                     "isPrimary": true,
@@ -51,12 +56,14 @@
         {
             "title": "Your father name",
             "slug": "father-name",
+            "toggle": "occuption",
             "type": "text",
             "value": 123,
             "attributeName": "name"
         },
         {
             "title": "City name",
+            "toggle": "occuption",
             "slug": "city-name",
             "type": "text",
             "value": 123,
@@ -65,6 +72,7 @@
         {
             "type": "select",
             "value": "india",
+            "toggle": "occuption",
             "title": "Country",
             "options": [
                 {
