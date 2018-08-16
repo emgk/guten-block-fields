@@ -294,31 +294,28 @@ module.exports.renderReactComponent = () => {
     _filesystem.readFile(
         _path.resolve(__dirname, '../gbf-scripts/code/block-editor.php'),
         (err, content) => {
+            content = content.toString().replace(/#component#/g, _helper.makeComponentName(_blockFieldJSON.name).toLowerCase());
+            content = content.toString().replace(/#editorStylePath#/g, `${outputDir.replace('.\/', '')}/css/editor-style.css`);
             _filesystem.writeFile(
-                `${outputDir}/block-editor.php`,
-                _replaceString(content.toString(), {
-                    '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
-                    '#editorStylePath#': `${outputDir}/block-fields.css`
-                }), (res) => {
+                `${outputDir}/block-editor.php`, content, (res) => {
                     // success.
                 })
         }
     )
 
     // check if exists.
-    if (!_filesystem.existsSync( `${outputDir}/css` )) {
+    if (!_filesystem.existsSync(`${outputDir}/css`)) {
         _shell.mkdir('-p', `${outputDir}/css`);
     }
+
 
     // write css
     _filesystem.readFile(
         _path.resolve(__dirname, '../gbf-scripts/css/fields-style.css'),
         (err, content) => {
+            content = content.toString().replace(/#component#/g, _helper.makeComponentName(_blockFieldJSON.name).toLowerCase());
             _filesystem.writeFile(
-                `${outputDir}/css/editor-style.css`,
-                _replaceString(content.toString(), {
-                    '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
-                }), (res) => {
+                `${outputDir}/css/editor-style.css`, content, (res) => {
                     // success.
                 })
         }
@@ -341,6 +338,6 @@ module.exports.renderReactComponent = () => {
             .blue(`\n\nStep 3: Add this code to your plugin's main php file.\n`) +
         _chalk
             .bgKeyword('black')
-            .yellow(`\n <?php include( plugin_dir_url( __FILE__ ) . '${outputDir}/block-editor.php'); ?>\n`)
+            .yellow(`\n <?php include( plugin_dir_path( __FILE__ ) . '${outputDir.replace('.\/', '')}/block-editor.php'); ?>\n`)
     )
 }
