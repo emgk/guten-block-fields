@@ -38,8 +38,6 @@ let _inspectorControllers = '';
  * @param {boolean} iscompleted 
  */
 const field_spinner = (field, iscompleted) => {
-
-    // Set start.
     _spinner.start(
         console.log(
             _chalk.bgKeyword('purple').white(`${field.slug || field.title}`) + _chalk.white(`\n[field is creating..]\n`)
@@ -330,12 +328,12 @@ module.exports.renderReactComponent = () => {
         _chalk
             .green(`Inspect Controller has been generated`) +
         _chalk
-            .blue(`\n\nStep 1: Add this below code at the top of your block file.`) +
+            .blue(`\n\nStep 1: Add this code at the top of your block file.`) +
         _chalk
             .bgKeyword('black')
             .yellow(`\n\nimport { ${_helper.makeComponentName(_blockFieldJSON.name)}} from '${outputDir}/BlockControllers';`) +
         _chalk
-            .blue(`\n\n Step 2: add this Tag to your block's edit method \n\n`) +
+            .blue(`\n\nStep 2: Add this into your block's edit method. \n\n`) +
         _chalk
             .bgKeyword('black')
             .yellow(`<${_helper.makeComponentName(_blockFieldJSON.name)}/>`) +
@@ -343,6 +341,6 @@ module.exports.renderReactComponent = () => {
             .blue(`\n\nStep 3: Add this code to your plugin's main php file.\n`) +
         _chalk
             .bgKeyword('black')
-            .yellow(`\n <?php include( plugin_dir_url( __FILE__ ) . ${outputDir}/block-editor.php'); ?>\n`)
+            .yellow(`\n <?php include( plugin_dir_url( __FILE__ ) . '${outputDir}/block-editor.php'); ?>\n`)
     )
 }
