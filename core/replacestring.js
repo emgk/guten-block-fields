@@ -20,7 +20,5 @@ module.exports = (base, arr = {}) => {
         return _replaceString;
     }
 
-    console.log('\n\n');
-
     return base;
 }
