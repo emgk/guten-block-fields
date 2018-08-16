@@ -91,13 +91,14 @@ module.exports._renderfield = (_current_field) => {
             _path.resolve(__dirname, _helper._gettp('basecontrol'))
         ).toString()
 
-        const label = _current_field.label ? `label={__('${_current_field.label}')}` : '';
-        const help = _current_field.help ? `help={__('${_current_field.help}')}` : '';
+        const label = _current_field.baseControlOptions ? `label={__('${_current_field.baseControlOptions.label || ""}')}` : '';
+        const help = _current_field.baseControlOptions ? `help={__('${_current_field.baseControlOptions.help || ""}')}` : '';
 
         _template = _replaceString(_basecontrolTemplate, {
             '#field-base-id#': _current_field.slug || '',
             '#field-base-label#': label,
             '#field-base-help#': help,
+            '#field-blockname#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
             '#field-base-html#': _template
         });
     }
@@ -213,6 +214,7 @@ module.exports._replacetag = () => {
 
             _toggleField = _replaceString(_toggleField, {
                 '#toggle-isOpen#': _toggles[_toggle_field].isOpen.toString() || false,
+                '#toggle-blockname#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
                 '#toggle-title#': _toggles[_toggle_field].title || '',
                 '#toogle-body#': _toggle_fields[_toggle_field]
             })
@@ -285,11 +287,24 @@ module.exports.renderReactComponent = () => {
         _inspectorControllers
     )
 
-    // Todo: format the file.
     _filesystem.writeFileSync(
         `${outputDir}/BlockControllers.js`,
         _prettier.format(_react_component, { semi: false, parser: "babylon", useTabs: true, bracketSpacing: true, jsxBracketSameLine: true, arrowParens: 'always' })
     )
+
+    let _php = _filesystem.readFileSync(
+        _path.resolve(__dirname, '../gbf-scripts/block-editor.tpl'),
+    );
+
+    _filesystem.writeFileSync(
+        `${outputDir}/block-editor.php`,
+        _replaceString(_php, {
+            '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
+            '#editorStylePath#': `${outputDir}/block-fields.css`
+        })
+    )
+
+    
 
     console.log(
         _chalk
