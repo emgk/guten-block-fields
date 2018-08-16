@@ -58,15 +58,15 @@ module.exports._gettp = (type) => {
     type = type || 'text';
 
     const relatedTemp = {
-        'text': '../gbf-scripts/fields/TextControl.tpl',
-        'toggle': '../gbf-scripts/PanelBody.tpl',
-        'basecontrol': '../gbf-scripts/fields/BaseControl.tpl',
-        'button-group': '../gbf-scripts/fields/ButtonGroup.tpl',
-        'button': '../gbf-scripts/fields/Button.tpl',
-        'checkbox': '../gbf-scripts/fields/CheckboxControl.tpl',
-        'radio': '../gbf-scripts/fields/RadioControl.tpl',
-        'range': '../gbf-scripts/fields/RangeControl.tpl',
-        'select': '../gbf-scripts/fields/SelectControl.tpl',
+        'text': '../gbf-scripts/fields/TextControl.js',
+        'toggle': '../gbf-scripts/PanelBody.js',
+        'basecontrol': '../gbf-scripts/fields/BaseControl.js',
+        'button-group': '../gbf-scripts/fields/ButtonGroup.js',
+        'button': '../gbf-scripts/fields/Button.js',
+        'checkbox': '../gbf-scripts/fields/CheckboxControl.js',
+        'radio': '../gbf-scripts/fields/RadioControl.js',
+        'range': '../gbf-scripts/fields/RangeControl.js',
+        'select': '../gbf-scripts/fields/SelectControl.js',
     }
 
     return relatedTemp[type] || '';

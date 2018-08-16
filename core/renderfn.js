@@ -292,7 +292,7 @@ module.exports.renderReactComponent = () => {
 
     // write php.
     _filesystem.readFile(
-        _path.resolve(__dirname, '../gbf-scripts/block-editor.tpl'),
+        _path.resolve(__dirname, '../gbf-scripts/code/block-editor.php'),
         (err, content) => {
             _filesystem.writeFile(
                 `${outputDir}/block-editor.php`,
@@ -312,7 +312,7 @@ module.exports.renderReactComponent = () => {
 
     // write css
     _filesystem.readFile(
-        _path.resolve(__dirname, '../gbf-scripts/fields-style.tpl'),
+        _path.resolve(__dirname, '../gbf-scripts/css/fields-style.css'),
         (err, content) => {
             _filesystem.writeFile(
                 `${outputDir}/css/editor-style.css`,
