@@ -294,7 +294,7 @@ module.exports.renderReactComponent = () => {
 
     let _php = _filesystem.readFileSync(
         _path.resolve(__dirname, '../gbf-scripts/block-editor.tpl'),
-    );
+    )
 
     _filesystem.writeFileSync(
         `${outputDir}/block-editor.php`,
@@ -304,7 +304,16 @@ module.exports.renderReactComponent = () => {
         })
     )
 
-    
+    let _css = _filesystem.readFileSync(
+        _path.resolve(__dirname, '../gbf-scripts/fields-style.tpl')
+    )
+
+    _filesystem.writeFileSync(
+        `${outputDir}/block-editor.php`,
+        _replaceString(_php, {
+            '#component#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),
+        })
+    )
 
     console.log(
         _chalk
