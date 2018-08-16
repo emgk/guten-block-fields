@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/dw/guten-block-fields.svg?style=flat-square)](https://www.npmjs.com/package/guten-block-fields)
 
-When you creating blocks in Gutenberg, You may want more fields to manage the block's content. Gutenberg has a section called Inspector Controller which will be appear on the right side of the block when you click on particular block on editor. This package will help you to create those field in more easy.
+When you creating blocks in Gutenberg, You may want more fields to manage the block's content. Gutenberg has a section called Inspector Controller which appears on the right side of the block when you click on particular block on editor. This package will help you to create those field in more easy.
 
 ## Install
 
