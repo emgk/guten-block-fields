@@ -71,11 +71,11 @@ Pass the list of the field which needs to be required generated.
 ##### Options: 
 
 - `title` Title or label of the field.
-- `slug` Slug or id of the field.
+- `id` id of the field.
 - `type` Type of the field. 
 - `value` Default value of the field.
 - `toggle` Toggle id in which this field should be appear. See "toggle" option above.
-- `baseControl` Field should wrapper inside the <baseControl> or not.  
+- `baseControl` Whether field should wrapper inside the <baseControl> or not.  
 
 ### Supported fields
 > More fields are on the way.
@@ -87,7 +87,7 @@ Render <TextControl />
 ````
 {
     "title": "Your Name",
-    "slug": "your-name",
+    "id": "your-name",
     "type": "text",
     "value": "john doe",
     "toggle": "bio",
@@ -106,6 +106,7 @@ Additional option:
 {
     "title": "Accept t&c",
     "label": "Sample",
+    "id": "sample",
     "toggle": "bio",
     "checked": true,
     "type": "checkbox"
@@ -120,6 +121,7 @@ Render `<Button />`
 {
     "title": "Save Changes",
     "type": "button",
+    "id": "save-change",
     "toggle": "occuption",
     "default": false,
     "class": "save"
@@ -134,17 +136,20 @@ Render `<ButtonGroup />`
 {
     "title": "Button Group",
     "type": "button-group",
+    "id": "button-group",
     "toggle": "occuption",
     "buttons": [
         {
             "isPrimary": true,
             "class": "red",
-            "label": "Red"
+            "label": "Red",
+            "id": "red"
         },
         {
             "isPrimary": false,
             "class": "blue",
-            "label": "Blue"
+            "label": "Blue",
+            "id": "blue"
         }
     ]
 },
@@ -158,6 +163,7 @@ Render `<Select />`
 {
     "type": "select",
     "value": "india",
+    "id": "country",
     "title": "Country",
     "options": [
         {
@@ -180,6 +186,7 @@ Render `<RadioControl />`
 {
     "type": "radio",
     "title": "Gender",
+    "id": "gender",
     "value": "male",
     "options": [
         {
@@ -201,6 +208,7 @@ Render `<RangeControl />`
 {
     "type": "range",
     "title": "Volume",
+    "id": "volume",
     "min": 1,
     "max": 100,
     "value": 40
