@@ -25,6 +25,9 @@ const get_packages = (blockFields) => {
                 case 'range':
                     _packages['wp.components'].push('RangeControl')
                     break;
+                case 'textarea':
+                    _packages['wp.components'].push('TextareaControl')
+                    break;
                 case 'select':
                     _packages['wp.components'].push('SelectControl')
                     break;

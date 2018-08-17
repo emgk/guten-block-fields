@@ -139,14 +139,24 @@ module.exports._renderfield = (_current_field) => {
                 '#field-options#': JSON.stringify(_current_field.options),
             })
             break;
+        case 'textarea':
+            _template = _replaceString(_template, {
+                '#field-row#': _current_field.rows || ``,
+            })
+            break;
         case 'select':
             _template = _replaceString(_template, {
                 '#field-options#': JSON.stringify(_current_field.options),
             })
             break;
+        case 'toggle':
+            _template = _replaceString(_template, {
+                '#field-checked#': "undefined" !== typeof _current_field.checked ? _current_field.checked : ``,
+            })
+            break;
         case 'datetime':
             _template = _replaceString(_template, {
-                '#field-hours#': "undefined" !== _current_field.is12hours ? _current_field.is12hours : true,
+                '#field-hours#': "undefined" !== typeof _current_field.is12hours ? _current_field.is12hours : true,
                 '#field-locale#': _current_field.locale || ``
             })
             break;

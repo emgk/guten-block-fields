@@ -70,6 +70,8 @@ module.exports._gettp = (type) => {
         'select': '../gbf-scripts/fields/SelectControl.js',
         'datetime': '../gbf-scripts/fields/DateTimePicker.js',
         'tree': '../gbf-scripts/fields/TreeSelect.js',
+        'textarea': '../gbf-scripts/fields/TextareaControl.js',
+        'toogle': '../gbf-scripts/fields/ToggleControl.js'
     }
 
     return relatedTemp[type] || '';
