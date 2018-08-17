@@ -1,0 +1,19 @@
+{
+    "name": "sample component",
+    "output": "./b",
+    "toggles": {
+        "sample1": {
+            "title": "Basic",
+            "isOpen": true
+        }
+    },
+    "fields": [
+        {
+            "title": "Name",
+            "id": "name",
+            "type": "text",
+            "class": "name",
+            "toggle": "sample1"
+        }
+    ]
+}
