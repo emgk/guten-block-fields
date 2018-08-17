@@ -144,6 +144,12 @@ module.exports._renderfield = (_current_field) => {
                 '#field-options#': JSON.stringify(_current_field.options),
             })
             break;
+        case 'datetime':
+            _template = _replaceString(_template, {
+                '#field-hours#': "undefined" !== _current_field.is12hours ? _current_field.is12hours : true,
+                '#field-locale#': _current_field.locale || ``
+            })
+            break;
         case 'range':
             _template = _replaceString(_template, {
                 '#range-min#': _current_field.min,

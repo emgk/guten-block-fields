@@ -68,6 +68,7 @@ module.exports._gettp = (type) => {
         'radio': '../gbf-scripts/fields/RadioControl.js',
         'range': '../gbf-scripts/fields/RangeControl.js',
         'select': '../gbf-scripts/fields/SelectControl.js',
+        'datetime': '../gbf-scripts/fields/DateTimePicker.js',
     }
 
     return relatedTemp[type] || '';
@@ -87,6 +88,7 @@ module.exports._getrs = () => {
         '#field-help#': 'help',
         '#field-class#': 'class',
         '#field-name#': 'name',
+        '#field-date#': 'currentDate',
         '#field-attributeName#': 'attributeName'
     };
 }
