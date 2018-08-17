@@ -15,7 +15,7 @@
     "fields": [
         {
             "title": "Your Name",
-            "slug": "your-name",
+            "id": "your-name",
             "type": "text",
             "class": "your-name",
             "toggle": "bio",
@@ -24,6 +24,7 @@
         },
         {
             "title": "Accept t&c",
+            "id": "terms",
             "label": "Sample",
             "toggle": "bio",
             "checked": true,
@@ -31,6 +32,7 @@
         },
         {
             "title": "Save Changes",
+            "id": "save-changes",
             "type": "button",
             "toggle": "occuption",
             "default": false,
@@ -38,24 +40,27 @@
         },
         {
             "title": "Button Group",
+            "id": "button-group",
             "type": "button-group",
             "toggle": "occuption",
             "buttons": [
                 {
                     "isPrimary": true,
                     "class": "red",
+                    "id": "red",
                     "label": "Red"
                 },
                 {
                     "isPrimary": false,
                     "class": "blue",
+                    "id": "red",
                     "label": "Blue"
                 }
             ]
         },
         {
             "title": "Your father name",
-            "slug": "father-name",
+            "id": "father-name",
             "toggle": "occuption",
             "type": "text",
             "attributeName": "name"
@@ -63,13 +68,14 @@
         {
             "title": "City name",
             "toggle": "occuption",
-            "slug": "city-name",
+            "id": "city-name",
             "type": "text",
             "attributeName": "name"
         },
         {
             "type": "select",
             "toggle": "occuption",
+            "id": "gender",
             "title": "Country",
             "options": [
                 {
@@ -85,6 +91,7 @@
         {
             "type": "radio",
             "title": "Gender",
+            "id": "gender",
             "label": "Gender",
             "options": [
                 {
@@ -99,6 +106,7 @@
         },
         {
             "type": "range",
+            "id": "volume",
             "title": "Volume",
             "min": 1,
             "max": 100

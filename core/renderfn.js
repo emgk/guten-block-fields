@@ -40,14 +40,14 @@ let _inspectorControllers = '';
 const field_spinner = (field, iscompleted) => {
     _spinner.start(
         console.log(
-            _chalk.bgKeyword('purple').white(`${field.slug || field.title}`) + _chalk.white(`\n[field is creating..]\n`)
+            _chalk.bgKeyword('purple').white(`${field.id || field.title}`) + _chalk.white(`\n[field is creating..]\n`)
         )
     )
 
     // If isn't completed.
     if (!iscompleted) {
         _spinner.fail(
-            _chalk.bgKeyword('red').black(`"${field.slug || field.title}" unable to generated.`)
+            _chalk.bgKeyword('red').black(`"${field.id || field.title}" unable to generated.`)
         )
     } else {
         // Completed.
@@ -55,7 +55,7 @@ const field_spinner = (field, iscompleted) => {
             _spinner.succeed(
                 _chalk
                     .bgKeyword('white')
-                    .black(` ${field.slug || field.title} `) +
+                    .black(` ${field.id || field.title} `) +
                 _chalk
                     .white('\n [100% completed..]\n'));
         }, 100);
@@ -93,7 +93,7 @@ module.exports._renderfield = (_current_field) => {
         const help = _current_field.baseControlOptions ? `help={__('${_current_field.baseControlOptions.help || ""}')}` : '';
 
         _template = _replaceString(_basecontrolTemplate, {
-            '#field-base-id#': _current_field.slug || '',
+            '#field-base-id#': _current_field.id || '',
             '#field-base-label#': label,
             '#field-base-help#': help,
             '#field-blockname#': _helper.makeComponentName(_blockFieldJSON.name).toLowerCase(),

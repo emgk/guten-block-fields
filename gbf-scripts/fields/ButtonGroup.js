@@ -1,3 +1,3 @@
-<ButtonGroup className="gbf-#field-slug#-field">
+<ButtonGroup className="gbf-#field-id#-field">
     #button-loop#
 </ButtonGroup>

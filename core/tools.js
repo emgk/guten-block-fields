@@ -80,7 +80,7 @@ module.exports._gettp = (type) => {
 module.exports._getrs = () => {
 
     return {
-        '#field-slug#': 'slug',
+        '#field-id#': 'id',
         '#field-label#': 'label',
         '#field-title#': 'title',
         '#field-help#': 'help',
