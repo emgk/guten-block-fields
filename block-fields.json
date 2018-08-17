@@ -17,6 +17,10 @@
         },
         {
             "title": "Background Color",
+            "baseControlOptions": {
+                "label": "color",
+                "help": "choose color"
+            },
             "id": "background-color",
             "type": "color",
             "colors": [

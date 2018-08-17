@@ -155,8 +155,8 @@ module.exports._renderfield = (_current_field) => {
             break;
         case 'textarea':
             _template = _replaceString(_template, {
-                '#field-row#': _current_field.rows || ``,
-                '#field-textvalue#': _current_field.value || ``,
+                '#field-row#': _current_field.rows || "",
+                '#field-textvalue#': _current_field.value || "",
             })
             break;
         case 'select':
@@ -171,13 +171,13 @@ module.exports._renderfield = (_current_field) => {
             break;
         case 'toggle':
             _template = _replaceString(_template, {
-                '#field-checked#': "undefined" !== typeof _current_field.checked ? _current_field.checked : ``,
+                '#field-checked#': "undefined" !== typeof _current_field.checked ? _current_field.checked : "",
             })
             break;
         case 'datetime':
             _template = _replaceString(_template, {
                 '#field-hours#': "undefined" !== typeof _current_field.is12hours ? _current_field.is12hours : true,
-                '#field-locale#': _current_field.locale || ``
+                '#field-locale#': _current_field.locale || ""
             })
             break;
         case 'range':
@@ -188,8 +188,8 @@ module.exports._renderfield = (_current_field) => {
             break;
         case 'tree':
             _template = _replaceString(_template, {
-                '#field-optionlabel#': _current_field.optionlabel || ``,
-                '#field-selectedId#': _current_field.selectedId || ``,
+                '#field-optionlabel#': _current_field.optionlabel || "",
+                '#field-selectedId#': _current_field.selectedId || "",
                 '#field-tree#': "undefined" === typeof _current_field.tree ? JSON.stringify(_current_field.tree) : `[]`
             })
             break;
@@ -379,7 +379,10 @@ module.exports.renderReactComponent = () => {
 
     console.log(
         _chalk
-            .green(`Inspect Controller has been generated`) +
+            .underline
+            .bold(`Thank you for using "Guten block fields"\n\n`) +
+        _chalk
+            .green(`Your fields has been generated, follow below steps:`) +
         _chalk
             .blue(`\n\nStep 1: Add this code at the top of your block file.`) +
         _chalk

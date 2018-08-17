@@ -80,7 +80,6 @@ Pass the list of the field which needs to be required generated.
 - `baseControl` Whether field should wrapper inside the <baseControl> or not.  
 
 ### Supported fields
-> More fields are on the way.
 
 #### text 
 Render <TextControl />
@@ -157,7 +156,7 @@ Render `<ButtonGroup />`
 },
 ````
 
-#### Select
+#### select
 Render `<Select />`
 
 ##### example
@@ -180,7 +179,7 @@ Render `<Select />`
 },
 ````
 
-#### Radio 
+#### radio 
 Render `<RadioControl />`
 
 ##### example:
@@ -203,9 +202,10 @@ Render `<RadioControl />`
 },
 ````
 
-#### Range 
+#### range 
 Render `<RangeControl />`
 
+##### Example
 ````
 {
     "type": "range",
@@ -217,3 +217,100 @@ Render `<RangeControl />`
 }
 ````
 
+#### color 
+Render `<ColorPalette />`
+
+##### Example
+````
+{
+    "type": "color",
+    "title": "Background Color",
+    "id": "bg-color",
+    "value": '#fff',
+    "colors": [
+        {
+            "name": "red",
+            "color": "#f00"
+        },
+        {
+            "name": "blue",
+            "color": "#00f"
+        },
+        {
+            "name": "black",
+            "color": "#000"
+        }
+    ]
+}
+````
+
+#### tree 
+Render `<TreeSelect />`
+
+##### Example
+````
+{
+    "title": "Select Post",
+    "type" : "tree",
+    "optionlabel": "Select option",
+    "selectedId": "p211",
+    "tree":[
+        {
+            name: 'Post 1',
+            id: 'p1',
+            children: [
+                { name: 'Descend 1 of post 1', id: 'p11' },
+                { name: 'Descend 2 of post 1', id: 'p12' },
+            ],
+        },
+        {
+            name: 'post 2',
+            id: 'p2',
+            children: [
+                {
+                    name: 'Descend 1 of post 2',
+                    id: 'p21',
+                    children: [
+                        {
+                            name: 'Descend 1 of Descend 1 of post 2',
+                            id: 'p211',
+                        },
+                    ],
+                },
+            ],
+        },
+    ]     
+}
+````
+
+#### datetime
+
+Render `<DateTime />`
+
+##### Example
+
+````
+{
+    "title": "Select Date and Time",
+    "id": "date-posting",
+    "type": "datetime",
+    "is12hours": true,
+    "locale": ""
+}
+````
+
+
+#### toggle
+
+Render `<ToggleControl />`
+
+##### Example
+
+````
+{
+    "title": "On/Off",
+    "type": "toggle",
+    "id": "on-off",
+    "checked" : "on"
+}
+````
