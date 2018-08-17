@@ -28,6 +28,9 @@ const get_packages = (blockFields) => {
                 case 'select':
                     _packages['wp.components'].push('SelectControl')
                     break;
+                case 'datetime':
+                    _packages['wp.components'].push('DateTimePicker')
+                    break;
                 case 'radio':
                     _packages['wp.components'].push('RadioControl')
                     break;

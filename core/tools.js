@@ -69,6 +69,7 @@ module.exports._gettp = (type) => {
         'range': '../gbf-scripts/fields/RangeControl.js',
         'select': '../gbf-scripts/fields/SelectControl.js',
         'datetime': '../gbf-scripts/fields/DateTimePicker.js',
+        'tree': '../gbf-scripts/fields/TreeSelect.js',
     }
 
     return relatedTemp[type] || '';

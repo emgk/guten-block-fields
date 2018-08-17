@@ -156,6 +156,13 @@ module.exports._renderfield = (_current_field) => {
                 '#range-max#': _current_field.max,
             })
             break;
+        case 'tree':
+            _template = _replaceString(_template, {
+                '#field-optionlabel#': _current_field.optionlabel || ``,
+                '#field-selectedId#': _current_field.selectedId || ``,
+                '#field-tree#': "undefined" === typeof _current_field.tree ? JSON.stringify(_current_field.tree) : `[]`
+            })
+            break;
         case 'button-group':
             if (_current_field.buttons.length <= 0) {
                 _helper._terminate_with_msg(` "buttons" were not passed for field "${_current_field.title}"`, true);
