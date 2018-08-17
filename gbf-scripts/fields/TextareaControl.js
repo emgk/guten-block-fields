@@ -1,6 +1,6 @@
 <TextareaControl
     label="#field-title#"
-    #field-value#
+    value="#field-textvalue#"
     onChange={(text)=> { /* Do stuff here */ }}
     rows="#field-row#"
 />

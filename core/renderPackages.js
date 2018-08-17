@@ -25,6 +25,9 @@ const get_packages = (blockFields) => {
                 case 'range':
                     _packages['wp.components'].push('RangeControl')
                     break;
+                case 'color':
+                    _packages['wp.components'].push('ColorPalette')
+                    break;
                 case 'textarea':
                     _packages['wp.components'].push('TextareaControl')
                     break;
@@ -53,8 +56,8 @@ const get_packages = (blockFields) => {
             }
 
             // import Tooltip
-            if ('undefined' !== typeof blockFields[field].toggle && false !== blockFields[field].tooltip) {
-                _packages['wp.components'].push('ToolTip');
+            if ('undefined' !== typeof blockFields[field].tooltip && "" !== blockFields[field].tooltip) {
+                _packages['wp.components'].push('Tooltip');
             }
 
             // import BaseControl.

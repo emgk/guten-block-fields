@@ -72,6 +72,7 @@ module.exports._gettp = (type) => {
         'tree': '../gbf-scripts/fields/TreeSelect.js',
         'textarea': '../gbf-scripts/fields/TextareaControl.js',
         'toogle': '../gbf-scripts/fields/ToggleControl.js',
+        'color': '../gbf-scripts/fields/ColorPalette.js',
         'tooltip': '../gbf-scripts/fields/ToolTip.js'
     }
 

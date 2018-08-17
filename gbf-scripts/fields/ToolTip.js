@@ -1,3 +1,3 @@
-<ToolTip text="#field-text">
+<Tooltip text="#field-text#">
     #field-render#
-</ToolTip>
+</Tooltip>

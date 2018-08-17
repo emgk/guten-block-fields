@@ -89,14 +89,14 @@ module.exports._renderfield = (_current_field) => {
     }
 
     // Tooltip
-    if ("undefined" === typeof _current_field.tooltip) {
+    if ("undefined" !== typeof _current_field.tooltip && "" !== _current_field.tooltip) {
         let _tooltip = _filesystem.readFileSync(
             _path.resolve(__dirname, _helper._gettp('tooltip'))
         ).toString()
 
         let _field_template = _replaceString(_tooltip, {
-            '#field-tooltip': _current_field.tooltip,
-            '#field-render': _template
+            '#field-text#': _current_field.tooltip,
+            '#field-render#': _template
         })
 
         _template = _field_template;
@@ -156,11 +156,17 @@ module.exports._renderfield = (_current_field) => {
         case 'textarea':
             _template = _replaceString(_template, {
                 '#field-row#': _current_field.rows || ``,
+                '#field-textvalue#': _current_field.value || ``,
             })
             break;
         case 'select':
             _template = _replaceString(_template, {
                 '#field-options#': JSON.stringify(_current_field.options),
+            })
+            break;
+        case 'color':
+            _template = _replaceString(_template, {
+                '#field-colors#': JSON.stringify(_current_field.colors) || `[]`,
             })
             break;
         case 'toggle':

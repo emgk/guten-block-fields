@@ -1,5 +1,5 @@
 {
-    "name": "sample component",
+    "name": "My Controllers",
     "output": "./b",
     "toggles": {
         "sample1": {
@@ -14,6 +14,32 @@
             "type": "text",
             "class": "name",
             "toggle": "sample1"
+        },
+        {
+            "title": "Background Color",
+            "id": "background-color",
+            "type": "color",
+            "colors": [
+                {
+                    "name": "red",
+                    "color": "#f00"
+                },
+                {
+                    "name": "blue",
+                    "color": "#00f"
+                },
+                {
+                    "name": "black",
+                    "color": "#000"
+                }
+            ]
+        },
+        {
+            "title": "Bio",
+            "id": "bio",
+            "type": "textarea",
+            "class": "bio-data",
+            "tooltip": "Enter your bio"
         }
     ]
 }
