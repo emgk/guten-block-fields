@@ -20,6 +20,10 @@ $ npm install guten-block-fields
 $ guten-block-fields make 
 ```
 
+## Video Demo
+
+[Click Here](https://youtu.be/j6mv9BcguoM) To watch the video demo..
+
 ## Create fields
 To create or manage block's field you'll need to create a `block-fields.json` file in your plugin's root folder.
 
