@@ -299,18 +299,5 @@ Render `<DateTime />`
 }
 ````
 
-
-#### toggle
-
-Render `<ToggleControl />`
-
-##### Example
-
-````
-{
-    "title": "On/Off",
-    "type": "toggle",
-    "id": "on-off",
-    "checked" : "on"
-}
-````
+-------
+Thanks! ;)

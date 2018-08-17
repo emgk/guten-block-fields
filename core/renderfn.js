@@ -371,7 +371,7 @@ module.exports.renderReactComponent = () => {
         (err, content) => {
             content = content.toString().replace(/#component#/g, _helper.makeComponentName(_blockFieldJSON.name).toLowerCase());
             _filesystem.writeFile(
-                `/css/editor-style.css`, content, (res) => {
+                `${outputDir}/css/editor-style.css`, content, (res) => {
                     // success.
                 })
         }
@@ -387,7 +387,7 @@ module.exports.renderReactComponent = () => {
             .blue(`\n\nStep 1: Add this code at the top of your block file.`) +
         _chalk
             .bgKeyword('black')
-            .yellow(`\n\nimport { ${_helper.makeComponentName(_blockFieldJSON.name)}} from '${outputDir}/BlockControllers';`) +
+            .yellow(`\n\nimport ${_helper.makeComponentName(_blockFieldJSON.name)} from '${outputDir}/BlockControllers';`) +
         _chalk
             .blue(`\n\nStep 2: Add this into your block's edit method. \n\n`) +
         _chalk
