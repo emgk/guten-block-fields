@@ -71,7 +71,8 @@ module.exports._gettp = (type) => {
         'datetime': '../gbf-scripts/fields/DateTimePicker.js',
         'tree': '../gbf-scripts/fields/TreeSelect.js',
         'textarea': '../gbf-scripts/fields/TextareaControl.js',
-        'toogle': '../gbf-scripts/fields/ToggleControl.js'
+        'toogle': '../gbf-scripts/fields/ToggleControl.js',
+        'tooltip': '../gbf-scripts/fields/ToolTip.js'
     }
 
     return relatedTemp[type] || '';

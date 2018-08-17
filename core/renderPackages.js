@@ -52,6 +52,11 @@ const get_packages = (blockFields) => {
                 _packages['wp.components'].push('PanelBody');
             }
 
+            // import Tooltip
+            if ('undefined' !== typeof blockFields[field].toggle && false !== blockFields[field].tooltip) {
+                _packages['wp.components'].push('ToolTip');
+            }
+
             // import BaseControl.
             if (true === blockFields[field].baseControl) {
                 _packages['wp.components'].push('BaseControl')

@@ -88,6 +88,20 @@ module.exports._renderfield = (_current_field) => {
         _helper._terminate_with_msg(`Make sure all fields has type, or refer to https://github.com/emgk/guten-block-fields#readme for more info.`, true);
     }
 
+    // Tooltip
+    if ("undefined" === typeof _current_field.tooltip) {
+        let _tooltip = _filesystem.readFileSync(
+            _path.resolve(__dirname, _helper._gettp('tooltip'))
+        ).toString()
+
+        let _field_template = _replaceString(_tooltip, {
+            '#field-tooltip': _current_field.tooltip,
+            '#field-render': _template
+        })
+
+        _template = _field_template;
+    }
+
     // base control.
     if (
         "undefined" === typeof _current_field.baseControl ||
