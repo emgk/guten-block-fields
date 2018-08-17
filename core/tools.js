@@ -34,16 +34,17 @@ module.exports.getComponentTemplate = () => {
  */
 module.exports._get_fields_json = () => {
     const _fs = require('fs');
+    const approot = process.cwd();
 
-    if (_fs.existsSync(require('path').resolve(__dirname, '../block-fields.json'))) {
+    if (_fs.existsSync(`${approot}/block-fields.json`)) {
         try {
-            const _fields = require('../block-fields.json');
+            const _fields = require(require('path').resolve(approot, './block-fields.json'))
             return _fields;
         } catch (err) {
-            this._terminate_with_msg(err);
+            this._terminate_with_msg(err, true);
         }
     } else {
-        this._terminate_with_msg(`block-fields.json is isn't exists, please refer to documentations!`)
+        this._terminate_with_msg(`block-fields.json is isn't exists, please refer to documentations!`, true)
     }
 }
 
@@ -143,7 +144,11 @@ module.exports._get_toggles = () => {
     // Get the field json.
     const _fields = this._get_fields_json()
 
-    if ("undefined" === _fields.toggles || _fields.toggles.length <= 0) {
+    if ("undefined" === typeof _fields.toggles) {
+        return false;
+    }
+
+    if (_fields.toggles.length <= 0) {
         return false;
     }
 

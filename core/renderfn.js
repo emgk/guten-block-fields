@@ -79,8 +79,13 @@ module.exports._renderfield = (_current_field) => {
     }
 
     // If field id is missing.
-    if ( "undefined" === typeof _current_field.id ){
+    if ("undefined" === typeof _current_field.id) {
         _helper._terminate_with_msg(`Make sure all fields has unique id, or refer to https://github.com/emgk/guten-block-fields#readme for more info.`, true);
+    }
+
+    // Require field type.
+    if ("undefined" === typeof _current_field.type) {
+        _helper._terminate_with_msg(`Make sure all fields has type, or refer to https://github.com/emgk/guten-block-fields#readme for more info.`, true);
     }
 
     // base control.
@@ -178,14 +183,13 @@ module.exports._renderfield = (_current_field) => {
  */
 module.exports._replacetag = () => {
 
+    if ("undefined" === typeof _blockFieldJSON.fields) {
+        _helper._terminate_with_msg(`No field were passed, Please refer to our documentaion`, true)
+    }
+
     // when no field were passed.
     if (_blockFieldJSON.fields.length <= 0) {
-        console.log(
-            _chalk
-                .red(`Oops! seems like no fields were mentioned. Please refer to our documentation.`)
-        );
-        // Terminate the job.
-        process.exit(1);
+        _helper._terminate_with_msg(`Oops! seems like no fields were mentioned. Please refer to our documentation.`, true)
     }
 
     let _template = '';
