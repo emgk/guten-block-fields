@@ -1,6 +1,7 @@
 <RadioControl
 		label="#field-label#"
-		selected=#field-option#
+		#field-option-selected#
+		className="#field-class#"
 		options={ #field-options# }
 		onChange={ ( option ) => { 
             /* setState( { option } ) */ 

@@ -1,7 +1,7 @@
 {
   "name": "guten-block-fields",
-  "version": "1.0.2",
-  "description": "Gutenbern npm package through which we can generate block's Inspector Controllers.",
+  "version": "1.0.3",
+  "description": "Generate or manage block fields for <InspectorControllers /> using a single JSON file.",
   "main": "index.js",
   "keywords": [
     "gutenberg",

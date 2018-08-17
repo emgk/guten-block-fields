@@ -80,13 +80,12 @@ module.exports._gettp = (type) => {
 module.exports._getrs = () => {
 
     return {
-        '#field-slug#': 'slug',
+        '#field-id#': 'id',
         '#field-label#': 'label',
         '#field-title#': 'title',
         '#field-help#': 'help',
         '#field-class#': 'class',
         '#field-name#': 'name',
-        '#field-value#': 'value',
         '#field-attributeName#': 'attributeName'
     };
 }
@@ -103,7 +102,9 @@ module.exports._terminate_with_msg = (msg, terminate = false) => {
     const _chalk = require('chalk');
 
     console.log(
-        _chalk.bgKeyword('red').white(`Error: ${msg}`)
+        _chalk
+            .bgKeyword('orange')
+            .black(`Error: ${msg}`)
     )
 
     if (terminate) {

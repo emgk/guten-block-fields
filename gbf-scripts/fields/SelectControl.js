@@ -1,6 +1,7 @@
 <SelectControl
 		label="#field-title#"
-		value={ "#field-value#" }
+		#field-value#
+		className="#field-class#"
 		options={ #field-options# }
 		onChange={ ( size ) => { /* setState( { size } ) */ } }
 />
