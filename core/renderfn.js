@@ -107,6 +107,10 @@ module.exports._renderfield = (_current_field) => {
         _template = _template.replace(_rt, _current_field[_helper._getrs()[_replacetags]] || '')
     }
 
+    // Replace value.
+    _template = _template.replace(/#field-value#/g, "undefined" !== typeof _current_field.value ? `value="${_current_field.value}"` : ``)
+    _template = _template.replace(/#field-value-selected#/g, _current_field.value ? `selected="${_current_field.value}"` : ``)
+
     switch (_current_field.type) {
         case 'text':
         case 'button':
