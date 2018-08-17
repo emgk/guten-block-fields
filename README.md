@@ -2,7 +2,10 @@
 # Guten Block Fields
 > WordPress Gutenberg development tool.
 
-[![npm](https://img.shields.io/npm/dw/guten-block-fields.svg?style=flat-square)](https://www.npmjs.com/package/guten-block-fields)
+[![NPM version](https://img.shields.io/npm/v/guten-block-fields.svg?style=flat-square)](https://www.npmjs.com/package/guten-block-fields)
+[![npm](https://img.shields.io/npm/dt/guten-block-fields.svg?style=flat-square)](https://www.npmjs.com/package/guten-block-fields)
+[![GitHub stars](https://img.shields.io/github/stars/emgk/guten-block-fields.svg?style=social&label=Star)](https://github.com/emgk/guten-block-fields)
+
 
 When you creating blocks in Gutenberg, You may want more fields to manage the block's content. Gutenberg has a section called Inspector Controller which appears on the right side of the block when you click on particular block on editor. This package will help you to create those field in more easy.
 
