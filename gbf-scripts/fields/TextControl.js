@@ -5,5 +5,5 @@
             // this.props.setAttributes({#field-attributeName#:value})
             // this.setState({#field-attributeName#:value})
     }}
-    value={ #field-value# }
+    #field-value#
 />
