@@ -1,7 +1,8 @@
  <RangeControl
         label="#field-label#"
         #field-value#
-        onChange={ ( columns ) => { /* setState( { columns }  )*/ }}
+        className="#field-class#"
+        onChange={ ( value ) => { /* setState( { value }  )*/ }}
         min={ #range-min# }
         max={ #range-max# }
 />

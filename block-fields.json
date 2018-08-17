@@ -8,8 +8,8 @@
             "icon": ""
         },
         "occuption": {
-            "title":"Occuption",
-            "isOpen":false
+            "title": "Occuption",
+            "isOpen": false
         }
     },
     "fields": [
@@ -17,7 +17,7 @@
             "title": "Your Name",
             "slug": "your-name",
             "type": "text",
-            "value": 123,
+            "class": "your-name",
             "toggle": "bio",
             "attributeName": "name",
             "baseControl": true
@@ -58,7 +58,6 @@
             "slug": "father-name",
             "toggle": "occuption",
             "type": "text",
-            "value": 123,
             "attributeName": "name"
         },
         {
@@ -66,12 +65,10 @@
             "toggle": "occuption",
             "slug": "city-name",
             "type": "text",
-            "value": 123,
             "attributeName": "name"
         },
         {
             "type": "select",
-            "value": "india",
             "toggle": "occuption",
             "title": "Country",
             "options": [
@@ -88,7 +85,7 @@
         {
             "type": "radio",
             "title": "Gender",
-            "value": "male",
+            "label": "Gender",
             "options": [
                 {
                     "label": "Male",
@@ -104,8 +101,7 @@
             "type": "range",
             "title": "Volume",
             "min": 1,
-            "max": 100,
-            "value": 40
+            "max": 100
         }
     ]
 }

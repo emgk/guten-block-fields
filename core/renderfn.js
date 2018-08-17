@@ -109,7 +109,6 @@ module.exports._renderfield = (_current_field) => {
 
     // Replace value.
     _template = _template.replace(/#field-value#/g, "undefined" !== typeof _current_field.value ? `value="${_current_field.value}"` : ``)
-    _template = _template.replace(/#field-value-selected#/g, _current_field.value ? `selected="${_current_field.value}"` : ``)
 
     switch (_current_field.type) {
         case 'text':
@@ -126,7 +125,7 @@ module.exports._renderfield = (_current_field) => {
 
         case 'radio':
             _template = _replaceString(_template, {
-                '#field-option#': `"${_current_field.option}"`,
+                '#field-option-selected#': "undefined" !== typeof _current_field.option ? `selected="${_current_field.option}"` : ``,
                 '#field-options#': JSON.stringify(_current_field.options),
             })
             break;
@@ -152,7 +151,7 @@ module.exports._renderfield = (_current_field) => {
                 buttonsHtml = '';
 
             for (button in _current_field.buttons) {
-                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}">{__("${_current_field.buttons[button].label}")}</Button>`
+                buttonsHtml = `${buttonsHtml} \n<Button isPrimary={${_current_field.buttons[button].isPrimary}} className="${_current_field.buttons[button].class}" onClick={() => {}}>{__("${_current_field.buttons[button].label}")}</Button>`
             }
 
             _template = _template.replace(`#button-loop#`, buttonsHtml);
@@ -173,6 +172,7 @@ module.exports._renderfield = (_current_field) => {
  * @since 1.0.0
  */
 module.exports._replacetag = () => {
+
     // when no field were passed.
     if (_blockFieldJSON.fields.length <= 0) {
         console.log(
@@ -299,7 +299,7 @@ module.exports.renderReactComponent = () => {
         _path.resolve(__dirname, '../gbf-scripts/code/block-editor.php'),
         (err, content) => {
             content = content.toString().replace(/#component#/g, _helper.makeComponentName(_blockFieldJSON.name).toLowerCase());
-            content = content.toString().replace(/#editorStylePath#/g, `${outputDir.replace('.\/', '')}/css/editor-style.css`);
+            content = content.toString().replace(/#editorStylePath#/g, `/css/editor-style.css`);
             _filesystem.writeFile(
                 `${outputDir}/block-editor.php`, content, (res) => {
                     // success.

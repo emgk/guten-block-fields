@@ -20,7 +20,9 @@ class #ComponentName# extends Component {
      * @param {*} props 
      */
     constructor(props) {
-        super(...arguments);
+        super(props);
+
+        // @Todo: set state variables here.
     }
 
     /**
