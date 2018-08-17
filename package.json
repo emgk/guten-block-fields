@@ -1,7 +1,7 @@
 {
   "name": "guten-block-fields",
-  "version": "1.0.5",
-  "description": "Generate or manage block fields for <InspectorControllers /> using a single JSON file.",
+  "version": "1.0.6",
+  "description": "Generate or manage block fields for <InspectorControls /> using a single JSON file.",
   "main": "index.js",
   "keywords": [
     "gutenberg",
