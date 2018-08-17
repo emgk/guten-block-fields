@@ -60,7 +60,6 @@
         },
         {
             "title": "Your father name",
-            "id": "father-name",
             "toggle": "occuption",
             "type": "text",
             "attributeName": "name"

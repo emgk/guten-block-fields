@@ -102,7 +102,9 @@ module.exports._terminate_with_msg = (msg, terminate = false) => {
     const _chalk = require('chalk');
 
     console.log(
-        _chalk.bgKeyword('red').white(`Error: ${msg}`)
+        _chalk
+            .bgKeyword('orange')
+            .black(`Error: ${msg}`)
     )
 
     if (terminate) {

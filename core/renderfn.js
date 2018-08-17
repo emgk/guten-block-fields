@@ -78,6 +78,11 @@ module.exports._renderfield = (_current_field) => {
         _helper._terminate_with_msg(`Template isn't found for field "${_current_field.title}"`, true);
     }
 
+    // If field id is missing.
+    if ( "undefined" === typeof _current_field.id ){
+        _helper._terminate_with_msg(`Make sure all fields has unique id, or refer to https://github.com/emgk/guten-block-fields#readme for more info.`, true);
+    }
+
     // base control.
     if (
         "undefined" === typeof _current_field.baseControl ||
