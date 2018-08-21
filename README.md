@@ -20,7 +20,7 @@ $ npm install guten-block-fields
 $ guten-block-fields make 
 ```
 
-## Documentaion
+## Documentation
 
 [Click Here](https://emgk.github.io/doc/) to see documentation.
 
